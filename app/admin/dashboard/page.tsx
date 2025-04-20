@@ -6,6 +6,7 @@ import { useAuth } from "@/context/auth-context"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, Package, ShoppingBag, DollarSign, Settings, BarChart, ImageIcon, BookOpen, Tag } from "lucide-react"
+import SeedDataButton from "@/components/seed-data-button"
 
 export default function AdminDashboard() {
   const { user, loading } = useAuth()
@@ -27,7 +28,10 @@ export default function AdminDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+        <SeedDataButton />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <Card>

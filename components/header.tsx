@@ -75,10 +75,22 @@ export default function Header() {
           {/* Navigation Icons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link href="/wishlist" className="text-white hover:text-gray-200">
-              <Heart size={24} />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
+              >
+                <Heart size={20} />
+              </Button>
             </Link>
             <Link href="/cart" className="text-white hover:text-gray-200 relative">
-              <ShoppingCart size={24} />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
+              >
+                <ShoppingCart size={20} />
+              </Button>
               <span className="absolute -top-2 -right-2 bg-white text-[#86C33B] text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 0
               </span>
@@ -87,8 +99,12 @@ export default function Header() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full text-white hover:bg-[#86C33B]/20">
-                    <User size={24} />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
+                  >
+                    <User size={20} />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -119,13 +135,17 @@ export default function Header() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="text-white border-white hover:bg-white hover:text-[#86C33B]"
+                    className="water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
                   >
                     Login
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="default" size="sm" className="bg-white text-[#86C33B] hover:bg-gray-100">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
+                  >
                     Sign Up
                   </Button>
                 </Link>
@@ -136,7 +156,7 @@ export default function Header() {
               <Button
                 variant="outline"
                 size="sm"
-                className="water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90 hover:text-white"
+                className="water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
               >
                 Sell on MommyFarm
               </Button>
@@ -189,13 +209,16 @@ export default function Header() {
                   <Link href="/login">
                     <Button
                       variant="outline"
-                      className="w-full text-white border-white hover:bg-white hover:text-[#86C33B]"
+                      className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
                     >
                       Login
                     </Button>
                   </Link>
                   <Link href="/register">
-                    <Button variant="default" className="w-full bg-white text-[#86C33B] hover:bg-gray-100">
+                    <Button
+                      variant="default"
+                      className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
+                    >
                       Sign Up
                     </Button>
                   </Link>
@@ -205,7 +228,7 @@ export default function Header() {
               <Link href="/seller/register">
                 <Button
                   variant="outline"
-                  className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90 hover:text-white"
+                  className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
                 >
                   Sell on MommyFarm
                 </Button>
