@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { Loader2 } from "lucide-react"
 
-export default function SeedDataButton() {
+export const SeedDataButton = () => {
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
 
@@ -45,3 +45,6 @@ export default function SeedDataButton() {
     </Button>
   )
 }
+
+// Also export as default for backward compatibility
+export default SeedDataButton
