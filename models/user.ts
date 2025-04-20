@@ -44,4 +44,7 @@ const UserSchema = new mongoose.Schema(
   },
 )
 
-export default mongoose.models.User || mongoose.model("User", UserSchema)
+// Use the getModel utility to safely get or create the model
+const User = mongoose.models.User || mongoose.model("User", UserSchema)
+
+export default User

@@ -59,8 +59,8 @@
     "vaul": "^0.9.6",
     "zod": "^3.24.1",
     "mongoose": "latest",
-    "bcryptjs": "latest",
-    "dotenv": "latest"
+    "dotenv": "latest",
+    "bcryptjs": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

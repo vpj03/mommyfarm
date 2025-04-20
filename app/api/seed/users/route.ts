@@ -1,67 +1,52 @@
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
-import dbConnect from "@/lib/db"
+import { withMongoose } from "@/lib/server-utils"
 import User from "@/models/user"
 
-export async function POST() {
+export async function GET() {
   try {
-    await dbConnect()
+    return withMongoose(async () => {
+      // Check if users already exist
+      const existingUsers = await User.countDocuments()
 
-    // Check if users already exist
-    const userCount = await User.countDocuments()
+      if (existingUsers > 0) {
+        return NextResponse.json({
+          success: true,
+          message: "Users already exist",
+        })
+      }
 
-    // Only seed if no users exist
-    if (userCount === 0) {
-      // Hash passwords
-      const salt = await bcrypt.genSalt(10)
-      const adminPassword = await bcrypt.hash("admin123", salt)
-      const sellerPassword = await bcrypt.hash("seller123", salt)
-      const buyerPassword = await bcrypt.hash("buyer123", salt)
-
-      // Create users
-      const users = [
+      // Create default users
+      const defaultUsers = [
         {
           name: "Admin User",
           email: "admin@mommyfarm.com",
-          password: adminPassword,
+          password: await bcrypt.hash("admin123", 10),
           role: "admin",
         },
         {
           name: "Seller User",
           email: "seller@mommyfarm.com",
-          password: sellerPassword,
+          password: await bcrypt.hash("seller123", 10),
           role: "seller",
         },
         {
           name: "Buyer User",
           email: "buyer@mommyfarm.com",
-          password: buyerPassword,
+          password: await bcrypt.hash("buyer123", 10),
           role: "buyer",
         },
       ]
 
-      await User.insertMany(users)
+      await User.insertMany(defaultUsers)
 
       return NextResponse.json({
         success: true,
         message: "Default users created successfully",
-        users: users.map((user) => ({
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        })),
       })
-    }
-
-    return NextResponse.json({
-      success: false,
-      message: "Users already exist. No new users created.",
     })
   } catch (error) {
-    console.error("Error seeding users:", error)
-    return NextResponse.json(
-      { success: false, message: "Failed to seed users", error: (error as Error).message },
-      { status: 500 },
-    )
+    console.error("Error creating default users:", error)
+    return NextResponse.json({ success: false, message: "Failed to create default users" }, { status: 500 })
   }
 }
