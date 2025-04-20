@@ -59,12 +59,15 @@ const config = {
           200: "#bbf7d0",
           300: "#86efac",
           400: "#4ade80",
-          500: "#22c55e",
-          600: "#16a34a",
-          700: "#15803d",
+          500: "#86C33B", // Updated to #86C33B
+          600: "#86C33B", // Updated to #86C33B
+          700: "#86C33B", // Updated to #86C33B
           800: "#166534",
           900: "#14532d",
           950: "#052e16",
+        },
+        orange: {
+          500: "#CC6203", // Added orange color for buttons
         },
       },
       borderRadius: {
@@ -81,10 +84,16 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "water-drop": {
+          "0%": { transform: "scale(1)", opacity: "0.7" },
+          "50%": { transform: "scale(1.05)", opacity: "0.4" },
+          "100%": { transform: "scale(1)", opacity: "0.7" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "water-drop": "water-drop 2s infinite",
       },
     },
   },

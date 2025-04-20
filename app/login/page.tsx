@@ -19,6 +19,7 @@ export default function LoginPage() {
   const router = useRouter()
   const { toast } = useToast()
 
+  // Update the handleSubmit function to properly handle login
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -32,9 +33,10 @@ export default function LoginPage() {
       })
       router.push("/")
     } catch (error) {
+      console.error("Login error:", error)
       toast({
         title: "Login failed",
-        description: "Please check your credentials and try again.",
+        description: (error as Error).message || "Please check your credentials and try again.",
         variant: "destructive",
       })
     } finally {

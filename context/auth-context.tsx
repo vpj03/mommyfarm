@@ -36,6 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false)
   }, [])
 
+  // Update the login function to properly handle authentication
   const login = async (email: string, password: string) => {
     setLoading(true)
     try {
@@ -53,6 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw new Error(data.message || "Login failed")
       }
 
+      // Store user data in state and localStorage
       setUser(data.user)
       localStorage.setItem("mommyfarm_user", JSON.stringify(data.user))
 

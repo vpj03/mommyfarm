@@ -23,6 +23,7 @@ export default function RegisterPage() {
   const router = useRouter()
   const { toast } = useToast()
 
+  // Update the handleSubmit function to properly handle registration
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -46,9 +47,10 @@ export default function RegisterPage() {
       })
       router.push("/")
     } catch (error) {
+      console.error("Registration error:", error)
       toast({
         title: "Registration failed",
-        description: "There was an error creating your account. Please try again.",
+        description: (error as Error).message || "There was an error creating your account. Please try again.",
         variant: "destructive",
       })
     } finally {

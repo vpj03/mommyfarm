@@ -8,6 +8,11 @@ export async function POST(request: Request) {
     await dbConnect()
     const { name, email, password, role } = await request.json()
 
+    // Validate input
+    if (!name || !email || !password) {
+      return NextResponse.json({ success: false, message: "Name, email, and password are required" }, { status: 400 })
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ email })
     if (existingUser) {
@@ -26,7 +31,7 @@ export async function POST(request: Request) {
       role: role || "buyer", // Default to buyer if no role provided
     })
 
-    // Remove password from response
+    // Create user object without password
     const userWithoutPassword = {
       _id: user._id,
       name: user.name,
@@ -35,14 +40,15 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { success: true, message: "User registered successfully", user: userWithoutPassword },
+      {
+        success: true,
+        message: "Registration successful",
+        user: userWithoutPassword,
+      },
       { status: 201 },
     )
   } catch (error) {
     console.error("Registration error:", error)
-    return NextResponse.json(
-      { success: false, message: "Error registering user", error: (error as Error).message },
-      { status: 500 },
-    )
+    return NextResponse.json({ success: false, message: "An error occurred during registration" }, { status: 500 })
   }
 }

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Footer() {
   return (
-    <footer className="bg-green-900 text-white">
+    <footer className="bg-[#86C33B] text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Contact Information */}
@@ -18,16 +18,16 @@ export default function Footer() {
               <p className="mb-2">Email: info@mommyfarm.com</p>
             </address>
             <div className="flex space-x-4 mt-4">
-              <Link href="#" className="hover:text-green-300">
+              <Link href="#" className="hover:text-gray-200">
                 <Facebook size={20} />
               </Link>
-              <Link href="#" className="hover:text-green-300">
+              <Link href="#" className="hover:text-gray-200">
                 <Twitter size={20} />
               </Link>
-              <Link href="#" className="hover:text-green-300">
+              <Link href="#" className="hover:text-gray-200">
                 <Instagram size={20} />
               </Link>
-              <Link href="#" className="hover:text-green-300">
+              <Link href="#" className="hover:text-gray-200">
                 <Youtube size={20} />
               </Link>
             </div>
@@ -38,27 +38,27 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="hover:text-green-300">
+                <Link href="/about" className="hover:text-gray-200">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-green-300">
+                <Link href="/products" className="hover:text-gray-200">
                   Products
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-green-300">
+                <Link href="/blog" className="hover:text-gray-200">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-green-300">
+                <Link href="/faq" className="hover:text-gray-200">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-green-300">
+                <Link href="/contact" className="hover:text-gray-200">
                   Contact
                 </Link>
               </li>
@@ -70,27 +70,27 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">Customer Service</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/shipping" className="hover:text-green-300">
+                <Link href="/shipping" className="hover:text-gray-200">
                   Shipping Policy
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="hover:text-green-300">
+                <Link href="/returns" className="hover:text-gray-200">
                   Returns & Refunds
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-green-300">
+                <Link href="/terms" className="hover:text-gray-200">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-green-300">
+                <Link href="/privacy" className="hover:text-gray-200">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/help" className="hover:text-green-300">
+                <Link href="/help" className="hover:text-gray-200">
                   Help Center
                 </Link>
               </li>
@@ -107,9 +107,9 @@ export default function Footer() {
               <Input
                 type="email"
                 placeholder="Your email address"
-                className="bg-green-800 border-green-700 text-white placeholder:text-green-400"
+                className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
               />
-              <Button className="bg-green-600 hover:bg-green-500">
+              <Button className="bg-[#CC6203] hover:bg-[#CC6203]/90 water-drop-btn">
                 <Mail className="mr-2 h-4 w-4" />
                 Subscribe
               </Button>
@@ -117,7 +117,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-green-800 mt-8 pt-8 text-center">
+        <div className="border-t border-white/20 mt-8 pt-8 text-center">
           <p>&copy; {new Date().getFullYear()} MommyFarm Organic. All rights reserved.</p>
         </div>
       </div>
