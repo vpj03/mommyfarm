@@ -17,18 +17,28 @@ export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [heroSlides, setHeroSlides] = useState<Banner[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchHeroSlides = async () => {
       try {
+        setLoading(true)
         const response = await fetch("/api/banners?type=hero")
+
+        if (!response.ok) {
+          throw new Error(`Error fetching hero slides: ${response.status}`)
+        }
+
         const data = await response.json()
 
         if (data.success) {
           setHeroSlides(data.banners)
+        } else {
+          throw new Error(data.message || "Failed to fetch hero slides")
         }
       } catch (error) {
         console.error("Error fetching hero slides:", error)
+        setError((error as Error).message)
       } finally {
         setLoading(false)
       }
@@ -60,6 +70,19 @@ export default function HeroSlider() {
     return () => clearInterval(interval)
   }, [currentSlide, heroSlides.length])
 
+  // If there's an error, show error message
+  if (error) {
+    return (
+      <div className="relative overflow-hidden rounded-lg h-[300px] md:h-[400px] lg:h-[500px] bg-gray-100 flex items-center justify-center">
+        <div className="text-center p-4">
+          <p className="text-red-500 mb-2">Error loading hero slides</p>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    )
+  }
+
+  // If loading, show loading state
   if (loading) {
     return (
       <div className="relative overflow-hidden rounded-lg h-[300px] md:h-[400px] lg:h-[500px] bg-gray-200 animate-pulse">
@@ -70,12 +93,19 @@ export default function HeroSlider() {
     )
   }
 
-  // If no slides, show placeholder
+  // If no slides, show default slide
   if (heroSlides.length === 0) {
     return (
-      <div className="relative overflow-hidden rounded-lg h-[300px] md:h-[400px] lg:h-[500px] bg-gray-100">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-gray-500">No hero slides available</p>
+      <div className="relative overflow-hidden rounded-lg h-[300px] md:h-[400px] lg:h-[500px] bg-[#86C33B]/10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-[#86C33B]">Welcome to MommyFarm</h2>
+          <p className="text-lg md:text-xl mb-6 max-w-2xl">
+            Your destination for premium organic products. Explore our range of fresh vegetables, fruits, oils, and
+            more.
+          </p>
+          <Button asChild className="bg-[#CC6203] hover:bg-[#CC6203]/90 water-drop-btn">
+            <a href="/products">Shop Now</a>
+          </Button>
         </div>
       </div>
     )
@@ -94,7 +124,7 @@ export default function HeroSlider() {
             <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-center items-start p-8 md:p-16">
               <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">{slide.title}</h2>
               {slide.description && <p className="text-white text-lg md:text-xl mb-6">{slide.description}</p>}
-              <Button asChild className="bg-green-600 hover:bg-green-700">
+              <Button asChild className="bg-[#CC6203] hover:bg-[#CC6203]/90 water-drop-btn">
                 <a href={slide.link}>Shop Now</a>
               </Button>
             </div>

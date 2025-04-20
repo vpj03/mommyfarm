@@ -16,18 +16,28 @@ export default function AdSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [adSlides, setAdSlides] = useState<Banner[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchAdSlides = async () => {
       try {
+        setLoading(true)
         const response = await fetch("/api/banners?type=ad")
+
+        if (!response.ok) {
+          throw new Error(`Error fetching ad slides: ${response.status}`)
+        }
+
         const data = await response.json()
 
         if (data.success) {
           setAdSlides(data.banners)
+        } else {
+          throw new Error(data.message || "Failed to fetch ad slides")
         }
       } catch (error) {
         console.error("Error fetching ad slides:", error)
+        setError((error as Error).message)
       } finally {
         setLoading(false)
       }
@@ -55,6 +65,19 @@ export default function AdSlider() {
     return () => clearInterval(interval)
   }, [currentSlide, adSlides.length])
 
+  // If there's an error, show error message
+  if (error) {
+    return (
+      <div className="relative overflow-hidden rounded-lg h-[120px] md:h-[150px] lg:h-[200px] bg-gray-100 flex items-center justify-center">
+        <div className="text-center p-4">
+          <p className="text-red-500 mb-2">Error loading ad banners</p>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    )
+  }
+
+  // If loading, show loading state
   if (loading) {
     return (
       <div className="relative overflow-hidden rounded-lg h-[120px] md:h-[150px] lg:h-[200px] bg-gray-200 animate-pulse">
@@ -65,12 +88,15 @@ export default function AdSlider() {
     )
   }
 
-  // If no slides, show placeholder
+  // If no slides, show default ad
   if (adSlides.length === 0) {
     return (
-      <div className="relative overflow-hidden rounded-lg h-[120px] md:h-[150px] lg:h-[200px] bg-gray-100">
+      <div className="relative overflow-hidden rounded-lg h-[120px] md:h-[150px] lg:h-[200px] bg-[#86C33B]/10">
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-gray-500">No ad banners available</p>
+          <div className="text-center p-4">
+            <h3 className="text-xl font-bold text-[#86C33B] mb-2">Special Offers</h3>
+            <p className="text-gray-700">Check out our latest deals on organic products!</p>
+          </div>
         </div>
       </div>
     )

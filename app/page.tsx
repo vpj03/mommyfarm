@@ -13,37 +13,37 @@ export default function Home() {
       <CategorySlider />
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Orgpick Vegetables</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Orgpick Vegetables</h2>
         <ProductSlider category="vegetables" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Orgpick Launch Offer</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Orgpick Launch Offer</h2>
         <ProductSlider category="launch-offer" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Certified Organic Cold Pressed Oils</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Certified Organic Cold Pressed Oils</h2>
         <ProductSlider category="oils" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Premium Organic Dry Fruits</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Premium Organic Dry Fruits</h2>
         <ProductSlider category="dry-fruits" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Organic Juices</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Organic Juices</h2>
         <ProductSlider category="juices" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Shop By Brands</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Shop By Brands</h2>
         <BrandSlider />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-green-800">Health E-books</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Health E-books</h2>
         <EbookSlider />
       </section>
     </div>
