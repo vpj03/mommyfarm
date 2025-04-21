@@ -3,98 +3,102 @@
 import type React from "react"
 
 import { useState } from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { useAuth } from "@/context/auth-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Loader2 } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const { login } = useAuth()
+  const [error, setError] = useState("")
   const router = useRouter()
-  const { toast } = useToast()
+  const { login } = useAuth()
 
-  // Update the handleSubmit function to properly handle login
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError("")
     setIsLoading(true)
 
     try {
       await login(email, password)
-      toast({
-        title: "Login successful",
-        description: "You have been logged in successfully.",
-        variant: "default",
-      })
       router.push("/")
-    } catch (error) {
-      console.error("Login error:", error)
-      toast({
-        title: "Login failed",
-        description: (error as Error).message || "Please check your credentials and try again.",
-        variant: "destructive",
-      })
+    } catch (err) {
+      setError((err as Error).message || "Failed to login. Please check your credentials.")
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="container mx-auto px-4 py-16 flex justify-center">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h1 className="text-2xl font-bold text-center mb-6 text-green-800">Login to MommyFarm</h1>
-
+    <div className="container flex items-center justify-center min-h-[calc(100vh-200px)] py-10">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-2xl text-center">Login to MommyFarm</CardTitle>
+          <CardDescription className="text-center">Enter your credentials to access your account</CardDescription>
+        </CardHeader>
+        <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link href="/forgot-password" className="text-sm text-green-600 hover:text-green-800">
+                <Link href="/forgot-password" className="text-sm text-[#86C33B] hover:underline">
                   Forgot password?
                 </Link>
               </div>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-
-            <Button type="submit" className="w-full bg-green-600 hover:bg-green-700" disabled={isLoading}>
-              {isLoading ? "Logging in..." : "Login"}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <Button type="submit" className="w-full bg-[#86C33B] hover:bg-[#86C33B]/90" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-gray-600">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="text-green-600 hover:text-green-800 font-medium">
-                Sign up
-              </Link>
-            </p>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-4">
+          <div className="text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="text-[#86C33B] hover:underline">
+              Register
+            </Link>
           </div>
-        </div>
-      </div>
+          <div className="text-center text-sm">
+            <p className="font-semibold mb-2">Default Login Credentials:</p>
+            <p>Admin: admin@mommyfarm.com / admin123</p>
+            <p>Seller: seller@mommyfarm.com / seller123</p>
+            <p>Buyer: buyer@mommyfarm.com / buyer123</p>
+          </div>
+        </CardFooter>
+      </Card>
     </div>
   )
 }

@@ -1,40 +1,53 @@
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
-import { withMongoose } from "@/lib/server-utils"
+import dbConnect from "@/lib/db"
 import User from "@/models/user"
 
 export async function POST(request: Request) {
   try {
-    return withMongoose(async () => {
-      const { email, password } = await request.json()
+    await dbConnect()
+    const { email, password } = await request.json()
 
-      // Find user by email
-      const user = await User.findOne({ email })
+    console.log("Login attempt for:", email)
 
-      if (!user) {
-        return NextResponse.json({ success: false, message: "Invalid email or password" }, { status: 401 })
-      }
+    // Validate input
+    if (!email || !password) {
+      console.log("Missing email or password")
+      return NextResponse.json({ success: false, message: "Email and password are required" }, { status: 400 })
+    }
 
-      // Compare passwords
-      const isMatch = await bcrypt.compare(password, user.password)
+    // Find user by email
+    const user = await User.findOne({ email })
+    if (!user) {
+      console.log("User not found:", email)
+      return NextResponse.json({ success: false, message: "Invalid email or password" }, { status: 401 })
+    }
 
-      if (!isMatch) {
-        return NextResponse.json({ success: false, message: "Invalid email or password" }, { status: 401 })
-      }
+    console.log("User found:", user.email)
 
-      // Return user data (excluding password)
-      const userData = {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      }
+    // Check if password is correct
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+    if (!isPasswordValid) {
+      console.log("Invalid password for:", email)
+      return NextResponse.json({ success: false, message: "Invalid email or password" }, { status: 401 })
+    }
 
-      return NextResponse.json({
-        success: true,
-        message: "Login successful",
-        user: userData,
-      })
+    console.log("Password valid for:", email)
+
+    // Create user object without password
+    const userWithoutPassword = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    }
+
+    console.log("Login successful for:", email)
+
+    return NextResponse.json({
+      success: true,
+      message: "Login successful",
+      user: userWithoutPassword,
     })
   } catch (error) {
     console.error("Login error:", error)

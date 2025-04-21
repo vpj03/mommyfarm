@@ -4,48 +4,62 @@ import CategorySlider from "@/components/home/category-slider"
 import ProductSlider from "@/components/home/product-slider"
 import BrandSlider from "@/components/home/brand-slider"
 import EbookSlider from "@/components/home/ebook-slider"
+import { SeedDataButton } from "@/components/seed-data-button"
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-8 space-y-12">
-      <HeroSlider />
-      <AdSlider />
-      <CategorySlider />
-
+    <main className="container py-6 space-y-10">
+      {/* Hero Slider */}
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Orgpick Vegetables</h2>
+        <HeroSlider />
+      </section>
+
+      {/* Categories */}
+      <section>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Shop by Category</h2>
+        <CategorySlider />
+      </section>
+
+      {/* Ad Banner */}
+      <section>
+        <AdSlider />
+      </section>
+
+      {/* Featured Products */}
+      <section>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Featured Products</h2>
         <ProductSlider category="vegetables" />
       </section>
 
+      {/* Brands */}
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Orgpick Launch Offer</h2>
-        <ProductSlider category="launch-offer" />
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Our Brands</h2>
+        <BrandSlider />
       </section>
 
+      {/* Oils Section */}
       <section>
         <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Certified Organic Cold Pressed Oils</h2>
         <ProductSlider category="oils" />
       </section>
 
+      {/* Ebooks */}
       <section>
-        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Premium Organic Dry Fruits</h2>
-        <ProductSlider category="dry-fruits" />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Organic Juices</h2>
-        <ProductSlider category="juices" />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Shop By Brands</h2>
-        <BrandSlider />
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Health E-books</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Organic Living Guides</h2>
         <EbookSlider />
       </section>
-    </div>
+
+      {/* Seed Data Button */}
+      <section className="flex justify-center">
+        <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <p className="text-center mb-4 text-gray-600">
+            If you don't see any products or banners, click the button below to seed the database with sample data:
+          </p>
+          <div className="flex justify-center">
+            <SeedDataButton />
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }
