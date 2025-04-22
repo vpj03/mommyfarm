@@ -131,12 +131,7 @@ export default function LoginPage() {
               Register
             </Link>
           </div>
-          <div className="text-center text-sm">
-            <p className="font-semibold mb-2">Default Login Credentials:</p>
-            <p>Admin: admin@mommyfarm.com / admin123</p>
-            <p>Seller: seller@mommyfarm.com / seller123</p>
-            <p>Buyer: buyer@mommyfarm.com / buyer123</p>
-          </div>
+         
         </CardFooter>
       </Card>
     </div>
