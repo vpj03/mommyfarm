@@ -4,7 +4,6 @@ import CategorySlider from "@/components/home/category-slider"
 import ProductSlider from "@/components/home/product-slider"
 import BrandSlider from "@/components/home/brand-slider"
 import EbookSlider from "@/components/home/ebook-slider"
-import { SeedDataButton } from "@/components/seed-data-button"
 
 export default function Home() {
   return (
@@ -47,18 +46,6 @@ export default function Home() {
       <section>
         <h2 className="text-2xl font-bold mb-6 text-[#86C33B]">Organic Living Guides</h2>
         <EbookSlider />
-      </section>
-
-      {/* Seed Data Button */}
-      <section className="flex justify-center">
-        <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
-          <p className="text-center mb-4 text-gray-600">
-            If you don't see any products or banners, click the button below to seed the database with sample data:
-          </p>
-          <div className="flex justify-center">
-            <SeedDataButton />
-          </div>
-        </div>
       </section>
     </main>
   )

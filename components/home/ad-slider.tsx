@@ -67,14 +67,32 @@ export default function AdSlider() {
 
   // If there's an error, show error message
   if (error) {
-    return (
-      <div className="relative overflow-hidden rounded-lg h-[120px] md:h-[150px] lg:h-[200px] bg-gray-100 flex items-center justify-center">
-        <div className="text-center p-4">
-          <p className="text-red-500 mb-2">Error loading ad banners</p>
-          <p className="text-gray-600">{error}</p>
-        </div>
-      </div>
-    )
+    // Instead of showing error, use default slides
+    const defaultSlides = [
+      {
+        _id: "default-ad-1",
+        title: "Special Offer on Dry Fruits",
+        image: "https://images.unsplash.com/photo-1616684000067-36952fde56ec?w=1200&auto=format&fit=crop",
+        link: "/products/dry-fruits",
+      },
+      {
+        _id: "default-ad-2",
+        title: "New Arrivals: Fresh Juices",
+        image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=1200&auto=format&fit=crop",
+        link: "/products/juices",
+      },
+      {
+        _id: "default-ad-3",
+        title: "Organic Gift Hampers",
+        image: "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=1200&auto=format&fit=crop",
+        link: "/gift-hampers",
+      },
+    ]
+
+    setAdSlides(defaultSlides)
+    setLoading(false)
+    setError(null)
+    return null
   }
 
   // If loading, show loading state

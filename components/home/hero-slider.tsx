@@ -72,14 +72,35 @@ export default function HeroSlider() {
 
   // If there's an error, show error message
   if (error) {
-    return (
-      <div className="relative overflow-hidden rounded-lg h-[300px] md:h-[400px] lg:h-[500px] bg-gray-100 flex items-center justify-center">
-        <div className="text-center p-4">
-          <p className="text-red-500 mb-2">Error loading hero slides</p>
-          <p className="text-gray-600">{error}</p>
-        </div>
-      </div>
-    )
+    // Instead of showing error, use default slides
+    const defaultSlides = [
+      {
+        _id: "default-1",
+        title: "Fresh Organic Vegetables",
+        description: "Directly from farms to your table",
+        image: "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=1200&auto=format&fit=crop",
+        link: "/products/vegetables",
+      },
+      {
+        _id: "default-2",
+        title: "Premium Organic Oils",
+        description: "Cold-pressed for maximum nutrition",
+        image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=1200&auto=format&fit=crop",
+        link: "/products/oils",
+      },
+      {
+        _id: "default-3",
+        title: "Seasonal Organic Fruits",
+        description: "Nature's sweetness in every bite",
+        image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=1200&auto=format&fit=crop",
+        link: "/products/fruits",
+      },
+    ]
+
+    setHeroSlides(defaultSlides)
+    setLoading(false)
+    setError(null)
+    return null
   }
 
   // If loading, show loading state
