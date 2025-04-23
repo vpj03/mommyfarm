@@ -239,48 +239,172 @@ export default function Header() {
 
         {/* Navigation Bar */}
         <nav className="hidden md:flex mt-4 border-t border-white/20 pt-4">
-          <ul className="flex space-x-8">
+          <ul className="flex space-x-6">
             <li>
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-white hover:text-gray-200">Trending</DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>Bestsellers</DropdownMenuItem>
-                  <DropdownMenuItem>New Releases</DropdownMenuItem>
-                  <DropdownMenuItem>Digital Content</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </li>
-            <li>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="text-white hover:text-gray-200">Shop by Category</DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>Vegetables</DropdownMenuItem>
-                  <DropdownMenuItem>Fruits</DropdownMenuItem>
-                  <DropdownMenuItem>Oils</DropdownMenuItem>
-                  <DropdownMenuItem>Dry Fruits</DropdownMenuItem>
-                  <DropdownMenuItem>Juices</DropdownMenuItem>
+                <DropdownMenuTrigger className="text-white hover:text-gray-200">
+                  Organic Fruits & Vegetables
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>50+ Types</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="grid grid-cols-2 gap-1">
+                    <DropdownMenuItem>Apples</DropdownMenuItem>
+                    <DropdownMenuItem>Tomatoes</DropdownMenuItem>
+                    <DropdownMenuItem>Spinach</DropdownMenuItem>
+                    <DropdownMenuItem>Carrots</DropdownMenuItem>
+                    <DropdownMenuItem>Bananas</DropdownMenuItem>
+                    <DropdownMenuItem>Broccoli</DropdownMenuItem>
+                    <DropdownMenuItem>Oranges</DropdownMenuItem>
+                    <DropdownMenuItem>Potatoes</DropdownMenuItem>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/products/fruits-vegetables" className="w-full">
+                      View All
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
             <li>
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-white hover:text-gray-200">
-                  Programs & Features
+                  Organic Grains & Pulses
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>Gift Cards</DropdownMenuItem>
-                  <DropdownMenuItem>MommyFarm Business</DropdownMenuItem>
-                  <DropdownMenuItem>Subscription Boxes</DropdownMenuItem>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>30+ Types</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="grid grid-cols-2 gap-1">
+                    <DropdownMenuItem>Rice</DropdownMenuItem>
+                    <DropdownMenuItem>Wheat</DropdownMenuItem>
+                    <DropdownMenuItem>Lentils</DropdownMenuItem>
+                    <DropdownMenuItem>Oats</DropdownMenuItem>
+                    <DropdownMenuItem>Quinoa</DropdownMenuItem>
+                    <DropdownMenuItem>Chickpeas</DropdownMenuItem>
+                    <DropdownMenuItem>Barley</DropdownMenuItem>
+                    <DropdownMenuItem>Millet</DropdownMenuItem>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/products/grains-pulses" className="w-full">
+                      View All
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
             <li>
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-white hover:text-gray-200">Help & Settings</DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>Your Account</DropdownMenuItem>
-                  <DropdownMenuItem>Customer Service</DropdownMenuItem>
-                  <DropdownMenuItem>Contact Us</DropdownMenuItem>
+                <DropdownMenuTrigger className="text-white hover:text-gray-200">Organic Dairy</DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>20+ Types</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="grid grid-cols-2 gap-1">
+                    <DropdownMenuItem>Milk</DropdownMenuItem>
+                    <DropdownMenuItem>Cheese</DropdownMenuItem>
+                    <DropdownMenuItem>Yogurt</DropdownMenuItem>
+                    <DropdownMenuItem>Butter</DropdownMenuItem>
+                    <DropdownMenuItem>Ghee</DropdownMenuItem>
+                    <DropdownMenuItem>Paneer</DropdownMenuItem>
+                    <DropdownMenuItem>Cream</DropdownMenuItem>
+                    <DropdownMenuItem>Curd</DropdownMenuItem>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/products/dairy" className="w-full">
+                      View All
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </li>
+            <li>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-white hover:text-gray-200">Organic Beverages</DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>50+ Types</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="grid grid-cols-2 gap-1">
+                    <DropdownMenuItem>Coffee</DropdownMenuItem>
+                    <DropdownMenuItem>Tea</DropdownMenuItem>
+                    <DropdownMenuItem>Juice</DropdownMenuItem>
+                    <DropdownMenuItem>Plant-based Milk</DropdownMenuItem>
+                    <DropdownMenuItem>Smoothies</DropdownMenuItem>
+                    <DropdownMenuItem>Herbal Drinks</DropdownMenuItem>
+                    <DropdownMenuItem>Kombucha</DropdownMenuItem>
+                    <DropdownMenuItem>Coconut Water</DropdownMenuItem>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/products/beverages" className="w-full">
+                      View All
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </li>
+            <li>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-white hover:text-gray-200">
+                  Organic Personal Care
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>150+ Products</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="grid grid-cols-2 gap-1">
+                    <DropdownMenuItem>Skincare</DropdownMenuItem>
+                    <DropdownMenuItem>Haircare</DropdownMenuItem>
+                    <DropdownMenuItem>Oral Care</DropdownMenuItem>
+                    <DropdownMenuItem>Body Care</DropdownMenuItem>
+                    <DropdownMenuItem>Face Wash</DropdownMenuItem>
+                    <DropdownMenuItem>Shampoo</DropdownMenuItem>
+                    <DropdownMenuItem>Oils</DropdownMenuItem>
+                    <DropdownMenuItem>Soaps</DropdownMenuItem>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/products/personal-care" className="w-full">
+                      View All
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </li>
+            <li>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-white hover:text-gray-200">More Categories</DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuItem>
+                    <Link href="/products/meat-poultry" className="w-full">
+                      Organic Meat & Poultry
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/products/snacks" className="w-full">
+                      Organic Snacks
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/products/cleaning" className="w-full">
+                      Organic Cleaning
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/products/baby" className="w-full">
+                      Organic Baby Products
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/products/home-living" className="w-full">
+                      Home & Living
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/products/eco-accessories" className="w-full">
+                      Eco Accessories
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
