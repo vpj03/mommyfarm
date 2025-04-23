@@ -1,31 +1,24 @@
-import mongoose from "mongoose"
 
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://pp3082295:pranavjeyan@cluster0.eaozimi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
-let cached = global.mongoose
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null }
-}
-
-async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn
+import mongoose from "mongoose";
+ 
+const mongoURL: string = process.env.NEXT_PUBLIC_MONGO_ATLAS_URL || "mongodb+srv://pp3082295:pranavjeyan@cluster0.eaozimi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+;
+ 
+let isConnected: boolean = false;
+ 
+const connectMongo: () => Promise<void> = async () => {
+  if (isConnected) {
+    return;
   }
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    }
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
-    })
+ 
+  try {
+    await mongoose.connect(mongoURL);
+    isConnected = true;
+    console.log("MongoDB connected successfully");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error);
+    isConnected = false;
   }
-  cached.conn = await cached.promise
-  return cached.conn
-}
-
-export default dbConnect
+};
+ 
+export default connectMongo;
