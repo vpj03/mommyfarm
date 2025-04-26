@@ -1,50 +1,28 @@
-import mongoose from "mongoose"
+import mongoose, { Schema, type Document } from "mongoose"
 
-const UserSchema = new mongoose.Schema(
+export interface IUser extends Document {
+  name: string
+  username: string
+  email: string
+  password: string
+  role: "admin" | "buyer" | "seller"
+  image?: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+const UserSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Please provide a name"],
-      maxlength: [60, "Name cannot be more than 60 characters"],
-    },
-    email: {
-      type: String,
-      required: [true, "Please provide an email"],
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: [true, "Please provide a password"],
-    },
-    role: {
-      type: String,
-      enum: ["admin", "seller", "buyer"],
-      default: "buyer",
-    },
-    addresses: [
-      {
-        type: {
-          street: String,
-          city: String,
-          state: String,
-          zipCode: String,
-          country: String,
-          isDefault: Boolean,
-        },
-      },
-    ],
-    phone: String,
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+    name: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, enum: ["admin", "buyer", "seller"], default: "buyer" },
+    image: { type: String, default: "" },
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 )
 
-// Use the getModel utility to safely get or create the model
-const User = mongoose.models.User || mongoose.model("User", UserSchema)
+export const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema)
 
 export default User

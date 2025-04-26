@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/auth-context"
 import { Button } from "@/components/ui/button"
@@ -11,19 +11,35 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useToast } from "@/components/ui/use-toast"
+import { Camera, Upload } from "lucide-react"
 
 export default function RegisterPage() {
   const [name, setName] = useState("")
+  const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [role, setRole] = useState<"buyer" | "seller">("buyer")
   const [isLoading, setIsLoading] = useState(false)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const { register } = useAuth()
   const router = useRouter()
   const { toast } = useToast()
 
-  // Update the handleSubmit function to properly handle registration
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setImageFile(file)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -36,15 +52,46 @@ export default function RegisterPage() {
       return
     }
 
+    if (!username) {
+      toast({
+        title: "Username required",
+        description: "Please enter a username.",
+        variant: "destructive",
+      })
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      await register(name, email, password, role)
+      // First, upload the image if there is one
+      let imageUrl = ""
+      if (imageFile) {
+        const formData = new FormData()
+        formData.append("file", imageFile)
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        })
+
+        if (!uploadResponse.ok) {
+          throw new Error("Failed to upload image")
+        }
+
+        const uploadData = await uploadResponse.json()
+        imageUrl = uploadData.url
+      }
+
+      // Then register the user with the image URL
+      await register(name, email, password, role, username, imageUrl)
+
       toast({
         title: "Registration successful",
         description: "Your account has been created successfully.",
         variant: "default",
       })
+
       router.push("/")
     } catch (error) {
       console.error("Registration error:", error)
@@ -65,6 +112,27 @@ export default function RegisterPage() {
           <h1 className="text-2xl font-bold text-center mb-6 text-green-800">Create an Account</h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Profile Image Upload */}
+            <div className="flex flex-col items-center mb-4">
+              <div
+                className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-100 mb-2 cursor-pointer"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {imagePreview ? (
+                  <Image src={imagePreview || "/placeholder.svg"} alt="Profile preview" fill className="object-cover" />
+                ) : (
+                  <div className="flex items-center justify-center h-full bg-gray-200">
+                    <Camera className="h-8 w-8 text-gray-400" />
+                  </div>
+                )}
+                <div className="absolute bottom-0 right-0 bg-[#86C33B] p-1 rounded-full">
+                  <Upload size={14} className="text-white" />
+                </div>
+              </div>
+              <input type="file" ref={fileInputRef} onChange={handleImageChange} accept="image/*" className="hidden" />
+              <p className="text-sm text-gray-500">Upload profile picture</p>
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
               <Input
@@ -73,6 +141,18 @@ export default function RegisterPage() {
                 placeholder="Enter your full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="Choose a username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </div>

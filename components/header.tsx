@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Search, Heart, ShoppingCart, User, Menu, X } from "lucide-react"
+import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useAuth } from "@/context/auth-context"
@@ -102,26 +102,38 @@ export default function Header() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
+                    className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full p-0 overflow-hidden"
                   >
-                    <User size={20} />
+                    {user.image ? (
+                      <Image
+                        src={user.image || "/placeholder.svg"}
+                        alt={user.name}
+                        width={36}
+                        height={36}
+                        className="object-cover rounded-full"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-white font-bold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <Link href={`/${user.role}/dashboard`} className="w-full">
+                    <Link href={`/${user.username}/dashboard`} className="w-full">
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/profile" className="w-full">
+                    <Link href={`/${user.username}/profile`} className="w-full">
                       Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/orders" className="w-full">
+                    <Link href={`/${user.username}/orders`} className="w-full">
                       Orders
                     </Link>
                   </DropdownMenuItem>
@@ -196,8 +208,22 @@ export default function Header() {
 
               {user ? (
                 <>
-                  <Link href={`/${user.role}/dashboard`} className="flex items-center space-x-2 text-white">
-                    <User size={20} />
+                  <Link href={`/${user.username}/dashboard`} className="flex items-center space-x-2 text-white">
+                    <div className="relative w-6 h-6 rounded-full overflow-hidden">
+                      {user.image ? (
+                        <Image
+                          src={user.image || "/placeholder.svg"}
+                          alt={user.name}
+                          width={24}
+                          height={24}
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-white text-[#86C33B] text-xs font-bold">
+                          {user.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                    </div>
                     <span>Dashboard</span>
                   </Link>
                   <Button variant="ghost" onClick={logout} className="justify-start px-0 text-white">

@@ -1,22 +1,29 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import { useRouter } from "next/navigation"
-import { useToast } from "@/components/ui/use-toast"
 
-type User = {
+interface User {
   _id: string
   name: string
+  username: string
   email: string
-  role: "admin" | "seller" | "buyer"
+  role: "admin" | "buyer" | "seller"
+  image?: string
 }
 
-type AuthContextType = {
+interface AuthContextType {
   user: User | null
-  login: (email: string, password: string) => Promise<void>
-  register: (name: string, email: string, password: string, role: "buyer" | "seller") => Promise<void>
-  logout: () => void
   loading: boolean
+  login: (email: string, password: string) => Promise<void>
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    role: "buyer" | "seller",
+    username: string,
+    image?: string,
+  ) => Promise<void>
+  logout: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -24,29 +31,30 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
-  const { toast } = useToast()
 
   useEffect(() => {
-    // Check if user is logged in from localStorage
-    const storedUser = localStorage.getItem("mommyfarm_user")
-    if (storedUser) {
+    // Check if user is logged in
+    const checkAuth = async () => {
       try {
-        setUser(JSON.parse(storedUser))
+        const response = await fetch("/api/auth/check")
+        const data = await response.json()
+
+        if (data.success && data.user) {
+          setUser(data.user)
+        }
       } catch (error) {
-        console.error("Error parsing stored user:", error)
-        localStorage.removeItem("mommyfarm_user")
+        console.error("Auth check error:", error)
+      } finally {
+        setLoading(false)
       }
     }
-    setLoading(false)
+
+    checkAuth()
   }, [])
 
-  // Update the login function to properly handle authentication
   const login = async (email: string, password: string) => {
     setLoading(true)
     try {
-      console.log("Attempting login with:", { email })
-
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -55,44 +63,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       })
 
-      console.log("Login response status:", response.status)
+      const data = await response.json()
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Login failed")
-      }
-
-      const data = await response.json()
-      console.log("Login response data:", data)
-
-      if (!data.success) {
         throw new Error(data.message || "Login failed")
       }
 
-      // Store user data in state and localStorage
-      setUser(data.user)
-      localStorage.setItem("mommyfarm_user", JSON.stringify(data.user))
-
-      toast({
-        title: "Login successful",
-        description: "Welcome back to MommyFarm!",
-      })
-
-      return data.user
+      if (data.success && data.user) {
+        setUser(data.user)
+      } else {
+        throw new Error(data.message || "Login failed")
+      }
     } catch (error) {
-      console.error("Login failed:", error)
-      toast({
-        title: "Login failed",
-        description: (error as Error).message || "Please check your credentials and try again.",
-        variant: "destructive",
-      })
+      console.error("Login error:", error)
       throw error
     } finally {
       setLoading(false)
     }
   }
 
-  const register = async (name: string, email: string, password: string, role: "buyer" | "seller") => {
+  const register = async (
+    name: string,
+    email: string,
+    password: string,
+    role: "buyer" | "seller",
+    username: string,
+    image = "",
+  ) => {
     setLoading(true)
     try {
       const response = await fetch("/api/auth/register", {
@@ -100,53 +97,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password, role }),
+        body: JSON.stringify({ name, email, password, role, username, image }),
       })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Registration failed")
-      }
 
       const data = await response.json()
 
-      if (!data.success) {
+      if (!response.ok) {
         throw new Error(data.message || "Registration failed")
       }
 
-      setUser(data.user)
-      localStorage.setItem("mommyfarm_user", JSON.stringify(data.user))
-
-      toast({
-        title: "Registration successful",
-        description: "Your account has been created successfully.",
-      })
-
-      return data.user
+      if (data.success && data.user) {
+        setUser(data.user)
+      } else {
+        throw new Error(data.message || "Registration failed")
+      }
     } catch (error) {
-      console.error("Registration failed:", error)
-      toast({
-        title: "Registration failed",
-        description: (error as Error).message || "Please try again with different credentials.",
-        variant: "destructive",
-      })
+      console.error("Registration error:", error)
       throw error
     } finally {
       setLoading(false)
     }
   }
 
-  const logout = () => {
-    setUser(null)
-    localStorage.removeItem("mommyfarm_user")
-    router.push("/")
-    toast({
-      title: "Logged out",
-      description: "You have been logged out successfully.",
-    })
+  const logout = async () => {
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+      })
+      setUser(null)
+    } catch (error) {
+      console.error("Logout error:", error)
+    }
   }
 
-  return <AuthContext.Provider value={{ user, login, register, logout, loading }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, loading, login, register, logout }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {

@@ -18,3 +18,75 @@ export { default as Ebook } from "@/models/ebook"
 export { default as Banner } from "@/models/banner"
 export { default as Cart } from "@/models/cart"
 export { default as Order } from "@/models/order"
+
+import { cookies } from "next/headers"
+import { SignJWT, jwtVerify } from "jose"
+import { User } from "@/models/user"
+
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret_please_change_in_production")
+
+// Function to get the current user from the session
+export async function getSessionUser() {
+  try {
+    const cookieStore = cookies()
+    const sessionCookie = cookieStore.get("session")
+
+    if (!sessionCookie?.value) {
+      return null
+    }
+
+    // Verify the JWT token
+    const { payload } = await jwtVerify(sessionCookie.value, JWT_SECRET)
+
+    if (!payload.userId) {
+      return null
+    }
+
+    // Connect to the database
+    await dbConnect()
+
+    // Find the user
+    const user = await User.findById(payload.userId).lean()
+
+    if (!user) {
+      return null
+    }
+
+    // Remove sensitive data
+    delete user.password
+
+    return {
+      ...user,
+      _id: user._id.toString(),
+    }
+  } catch (error) {
+    console.error("Session verification error:", error)
+    return null
+  }
+}
+
+// Function to create a new session
+export async function createSession(userId: string, expiresIn = "7d") {
+  try {
+    // Create a new JWT token
+    const token = await new SignJWT({ userId })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime(expiresIn)
+      .sign(JWT_SECRET)
+
+    // Set the cookie
+    cookies().set("session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: "/",
+    })
+
+    return true
+  } catch (error) {
+    console.error("Session creation error:", error)
+    return false
+  }
+}

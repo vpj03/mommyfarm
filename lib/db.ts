@@ -29,3 +29,6 @@ async function dbConnect() {
 }
 
 export default dbConnect
+
+// Export connectToDatabase as an alias for dbConnect for compatibility
+export const connectToDatabase = dbConnect
