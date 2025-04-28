@@ -152,15 +152,6 @@ export default function Header() {
                     Login
                   </Button>
                 </Link>
-                <Link href="/register">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
-                  >
-                    Sign Up
-                  </Button>
-                </Link>
               </div>
             )}
 
