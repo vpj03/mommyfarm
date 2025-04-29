@@ -5,6 +5,7 @@ import { useAuth } from "@/context/auth-context"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Loader2, Package, Heart, CreditCard, Settings, ShoppingCart } from "lucide-react"
+import { BuyerNav } from "@/components/buyer/buyer-nav"
 
 export default function BuyerDashboard({ params }) {
   const { user, loading } = useAuth()
@@ -70,6 +71,8 @@ export default function BuyerDashboard({ params }) {
           </Link>
         </div>
       </div>
+
+      <BuyerNav />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Stats Cards */}

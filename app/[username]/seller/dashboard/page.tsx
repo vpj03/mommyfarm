@@ -5,6 +5,7 @@ import { useAuth } from "@/context/auth-context"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Loader2, Package, ShoppingBag, DollarSign, BarChart2, Plus } from "lucide-react"
+import { SellerNav } from "@/components/seller/seller-nav"
 
 export default function SellerDashboard({ params }) {
   const { user, loading } = useAuth()
@@ -70,6 +71,8 @@ export default function SellerDashboard({ params }) {
           </Link>
         </div>
       </div>
+
+      <SellerNav />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Stats Cards */}

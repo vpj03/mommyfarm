@@ -5,6 +5,7 @@ import { useAuth } from "@/context/auth-context"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Loader2, Users, ShoppingBag, Package, DollarSign, TrendingUp, BarChart2 } from "lucide-react"
+import { AdminNav } from "@/components/admin/admin-nav"
 
 export default function AdminDashboard() {
   const { user, loading } = useAuth()
@@ -57,6 +58,8 @@ export default function AdminDashboard() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+
+      <AdminNav />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Stats Cards */}
