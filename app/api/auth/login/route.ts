@@ -28,7 +28,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Create session
-    const session = await createSession(user._id.toString())
+    const sessionCreated = await createSession(user._id.toString())
+
+    if (!sessionCreated) {
+      return NextResponse.json({ success: false, message: "Failed to create session" }, { status: 500 })
+    }
 
     // Return user data (excluding password)
     const userData = {
@@ -40,7 +44,10 @@ export async function POST(request: NextRequest) {
       image: user.image,
     }
 
-    return NextResponse.json({ success: true, user: userData })
+    // Create a response with the user data
+    const response = NextResponse.json({ success: true, user: userData })
+
+    return response
   } catch (error) {
     console.error("Login error:", error)
     return NextResponse.json({ success: false, message: "Login failed" }, { status: 500 })

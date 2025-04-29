@@ -131,7 +131,6 @@ export default function LoginPage() {
               Register
             </Link>
           </div>
-         
         </CardFooter>
       </Card>
     </div>
