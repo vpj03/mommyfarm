@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,6 +22,7 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
   const { user, logout } = useAuth()
 
   useEffect(() => {
@@ -40,6 +41,11 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [lastScrollY])
+
+  // Function to handle navigation
+  const handleNavigation = (path: string) => {
+    router.push(path)
+  }
 
   return (
     <header
@@ -125,180 +131,112 @@ export default function Header() {
 
                   {user.role === "admin" && (
                     <>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin`} className="w-full">
-                          Admin Dashboard
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin`)}>
+                        Admin Dashboard
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/users`} className="w-full">
-                          User Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/users`)}>
+                        User Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/products`} className="w-full">
-                          Products Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/products`)}>
+                        Products Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/orders`} className="w-full">
-                          Orders Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/orders`)}>
+                        Orders Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/payments`} className="w-full">
-                          Payments Tracking
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/payments`)}>
+                        Payments Tracking
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/banners`} className="w-full">
-                          Banners/Hero Slides
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/banners`)}>
+                        Banners/Hero Slides
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/categories`} className="w-full">
-                          Categories Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/categories`)}>
+                        Categories Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/ebooks`} className="w-full">
-                          E-books Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/ebooks`)}>
+                        E-books Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/brands`} className="w-full">
-                          Brands Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/brands`)}>
+                        Brands Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/sellers`} className="w-full">
-                          Seller Approvals
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/sellers`)}>
+                        Seller Approvals
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/messages`} className="w-full">
-                          Messaging System
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/messages`)}>
+                        Messaging System
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/admin/settings`} className="w-full">
-                          Settings
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/admin/settings`)}>
+                        Settings
                       </DropdownMenuItem>
                     </>
                   )}
 
                   {user.role === "seller" && (
                     <>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/dashboard`} className="w-full">
-                          Seller Dashboard
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/dashboard`)}>
+                        Seller Dashboard
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/store`} className="w-full">
-                          Store Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/store`)}>
+                        Store Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/products`} className="w-full">
-                          Product Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/products`)}>
+                        Product Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/orders`} className="w-full">
-                          Orders Tracking
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/orders`)}>
+                        Orders Tracking
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/payments`} className="w-full">
-                          Payments Tracking
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/payments`)}>
+                        Payments Tracking
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/customers`} className="w-full">
-                          Customer Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/customers`)}>
+                        Customer Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/analytics`} className="w-full">
-                          Analytics Dashboard
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/analytics`)}>
+                        Analytics Dashboard
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/messages`} className="w-full">
-                          Messaging System
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/messages`)}>
+                        Messaging System
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/kyc`} className="w-full">
-                          KYC Details
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/kyc`)}>
+                        KYC Details
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/seller/settings`} className="w-full">
-                          Settings
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/seller/settings`)}>
+                        Settings
                       </DropdownMenuItem>
                     </>
                   )}
 
                   {user.role === "buyer" && (
                     <>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/dashboard`} className="w-full">
-                          Buyer Dashboard
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/dashboard`)}>
+                        Buyer Dashboard
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/profile`} className="w-full">
-                          Profile Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/profile`)}>
+                        Profile Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/orders`} className="w-full">
-                          Orders History
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/orders`)}>
+                        Orders History
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href="/wishlist" className="w-full">
-                          Wishlist
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation("/wishlist")}>Wishlist</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/addresses`)}>
+                        Address Management
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/addresses`} className="w-full">
-                          Address Management
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/subscriptions`)}>
+                        Subscriptions
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/subscriptions`} className="w-full">
-                          Subscriptions
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/payment-methods`)}>
+                        Payment Methods
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/payment-methods`} className="w-full">
-                          Payment Methods
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/wallet`)}>
+                        Wallet
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/wallet`} className="w-full">
-                          Wallet
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/notifications`)}>
+                        Notifications
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/notifications`} className="w-full">
-                          Notifications
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/support`)}>
+                        Support
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/support`} className="w-full">
-                          Support
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href={`/${user.username}/settings`} className="w-full">
-                          Settings
-                        </Link>
+                      <DropdownMenuItem onSelect={() => handleNavigation(`/${user.username}/settings`)}>
+                        Settings
                       </DropdownMenuItem>
                     </>
                   )}
@@ -354,80 +292,131 @@ export default function Header() {
             </div>
 
             <nav className="flex flex-col space-y-4">
-              <Link href="/wishlist" className="flex items-center space-x-2 text-white">
+              <button
+                onClick={() => handleNavigation("/wishlist")}
+                className="flex items-center space-x-2 text-white text-left"
+              >
                 <Heart size={20} />
                 <span>Wishlist</span>
-              </Link>
-              <Link href="/cart" className="flex items-center space-x-2 text-white">
+              </button>
+              <button
+                onClick={() => handleNavigation("/cart")}
+                className="flex items-center space-x-2 text-white text-left"
+              >
                 <ShoppingCart size={20} />
                 <span>Cart</span>
-              </Link>
+              </button>
 
               {user ? (
                 <>
                   {user.role === "admin" && (
                     <div className="flex flex-col space-y-2 border-t border-white/20 pt-2">
                       <span className="text-white font-semibold">Admin Menu</span>
-                      <Link href={`/${user.username}/admin`} className="text-white">
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/admin`)}
+                        className="text-white text-left"
+                      >
                         Admin Dashboard
-                      </Link>
-                      <Link href={`/${user.username}/admin/users`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/admin/users`)}
+                        className="text-white text-left"
+                      >
                         User Management
-                      </Link>
-                      <Link href={`/${user.username}/admin/products`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/admin/products`)}
+                        className="text-white text-left"
+                      >
                         Products Management
-                      </Link>
-                      <Link href={`/${user.username}/admin/orders`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/admin/orders`)}
+                        className="text-white text-left"
+                      >
                         Orders Management
-                      </Link>
-                      <Link href={`/${user.username}/admin/payments`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/admin/payments`)}
+                        className="text-white text-left"
+                      >
                         Payments Tracking
-                      </Link>
-                      <Link href={`/${user.username}/admin/settings`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/admin/settings`)}
+                        className="text-white text-left"
+                      >
                         Settings
-                      </Link>
+                      </button>
                     </div>
                   )}
 
                   {user.role === "seller" && (
                     <div className="flex flex-col space-y-2 border-t border-white/20 pt-2">
                       <span className="text-white font-semibold">Seller Menu</span>
-                      <Link href={`/${user.username}/seller/dashboard`} className="text-white">
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/seller/dashboard`)}
+                        className="text-white text-left"
+                      >
                         Seller Dashboard
-                      </Link>
-                      <Link href={`/${user.username}/seller/store`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/seller/store`)}
+                        className="text-white text-left"
+                      >
                         Store Management
-                      </Link>
-                      <Link href={`/${user.username}/seller/products`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/seller/products`)}
+                        className="text-white text-left"
+                      >
                         Product Management
-                      </Link>
-                      <Link href={`/${user.username}/seller/orders`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/seller/orders`)}
+                        className="text-white text-left"
+                      >
                         Orders Tracking
-                      </Link>
-                      <Link href={`/${user.username}/seller/settings`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/seller/settings`)}
+                        className="text-white text-left"
+                      >
                         Settings
-                      </Link>
+                      </button>
                     </div>
                   )}
 
                   {user.role === "buyer" && (
                     <div className="flex flex-col space-y-2 border-t border-white/20 pt-2">
                       <span className="text-white font-semibold">Buyer Menu</span>
-                      <Link href={`/${user.username}/dashboard`} className="text-white">
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/dashboard`)}
+                        className="text-white text-left"
+                      >
                         Buyer Dashboard
-                      </Link>
-                      <Link href={`/${user.username}/profile`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/profile`)}
+                        className="text-white text-left"
+                      >
                         Profile Management
-                      </Link>
-                      <Link href={`/${user.username}/orders`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/orders`)}
+                        className="text-white text-left"
+                      >
                         Orders History
-                      </Link>
-                      <Link href="/wishlist" className="text-white">
+                      </button>
+                      <button onClick={() => handleNavigation("/wishlist")} className="text-white text-left">
                         Wishlist
-                      </Link>
-                      <Link href={`/${user.username}/settings`} className="text-white">
+                      </button>
+                      <button
+                        onClick={() => handleNavigation(`/${user.username}/settings`)}
+                        className="text-white text-left"
+                      >
                         Settings
-                      </Link>
+                      </button>
                     </div>
                   )}
 
@@ -441,33 +430,30 @@ export default function Header() {
                 </>
               ) : (
                 <div className="flex flex-col space-y-2">
-                  <Link href="/login">
-                    <Button
-                      variant="outline"
-                      className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
-                    >
-                      Login
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <Button
-                      variant="default"
-                      className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
-                    >
-                      Sign Up
-                    </Button>
-                  </Link>
+                  <Button
+                    variant="outline"
+                    onClick={() => handleNavigation("/login")}
+                    className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    variant="default"
+                    onClick={() => handleNavigation("/register")}
+                    className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
+                  >
+                    Sign Up
+                  </Button>
                 </div>
               )}
 
-              <Link href="/seller/register">
-                <Button
-                  variant="outline"
-                  className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
-                >
-                  Sell on MommyFarm
-                </Button>
-              </Link>
+              <Button
+                variant="outline"
+                onClick={() => handleNavigation("/seller/register")}
+                className="w-full water-drop-btn bg-[#CC6203] text-white border-[#CC6203] hover:bg-[#CC6203]/90"
+              >
+                Sell on MommyFarm
+              </Button>
             </nav>
           </div>
         )}
@@ -484,20 +470,34 @@ export default function Header() {
                   <DropdownMenuLabel>50+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem>Apples</DropdownMenuItem>
-                    <DropdownMenuItem>Tomatoes</DropdownMenuItem>
-                    <DropdownMenuItem>Spinach</DropdownMenuItem>
-                    <DropdownMenuItem>Carrots</DropdownMenuItem>
-                    <DropdownMenuItem>Bananas</DropdownMenuItem>
-                    <DropdownMenuItem>Broccoli</DropdownMenuItem>
-                    <DropdownMenuItem>Oranges</DropdownMenuItem>
-                    <DropdownMenuItem>Potatoes</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/apples")}>
+                      Apples
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/tomatoes")}>
+                      Tomatoes
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/spinach")}>
+                      Spinach
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/carrots")}>
+                      Carrots
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/bananas")}>
+                      Bananas
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/broccoli")}>
+                      Broccoli
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/oranges")}>
+                      Oranges
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables/potatoes")}>
+                      Potatoes
+                    </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/products/fruits-vegetables" className="w-full">
-                      View All
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/fruits-vegetables")}>
+                    View All
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -511,20 +511,34 @@ export default function Header() {
                   <DropdownMenuLabel>30+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem>Rice</DropdownMenuItem>
-                    <DropdownMenuItem>Wheat</DropdownMenuItem>
-                    <DropdownMenuItem>Lentils</DropdownMenuItem>
-                    <DropdownMenuItem>Oats</DropdownMenuItem>
-                    <DropdownMenuItem>Quinoa</DropdownMenuItem>
-                    <DropdownMenuItem>Chickpeas</DropdownMenuItem>
-                    <DropdownMenuItem>Barley</DropdownMenuItem>
-                    <DropdownMenuItem>Millet</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/rice")}>
+                      Rice
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/wheat")}>
+                      Wheat
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/lentils")}>
+                      Lentils
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/oats")}>
+                      Oats
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/quinoa")}>
+                      Quinoa
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/chickpeas")}>
+                      Chickpeas
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/barley")}>
+                      Barley
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses/millet")}>
+                      Millet
+                    </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/products/grains-pulses" className="w-full">
-                      View All
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/grains-pulses")}>
+                    View All
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -536,21 +550,27 @@ export default function Header() {
                   <DropdownMenuLabel>20+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem>Milk</DropdownMenuItem>
-                    <DropdownMenuItem>Cheese</DropdownMenuItem>
-                    <DropdownMenuItem>Yogurt</DropdownMenuItem>
-                    <DropdownMenuItem>Butter</DropdownMenuItem>
-                    <DropdownMenuItem>Ghee</DropdownMenuItem>
-                    <DropdownMenuItem>Paneer</DropdownMenuItem>
-                    <DropdownMenuItem>Cream</DropdownMenuItem>
-                    <DropdownMenuItem>Curd</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/milk")}>Milk</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/cheese")}>
+                      Cheese
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/yogurt")}>
+                      Yogurt
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/butter")}>
+                      Butter
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/ghee")}>Ghee</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/paneer")}>
+                      Paneer
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/cream")}>
+                      Cream
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy/curd")}>Curd</DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/products/dairy" className="w-full">
-                      View All
-                    </Link>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/dairy")}>View All</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
@@ -561,21 +581,33 @@ export default function Header() {
                   <DropdownMenuLabel>50+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem>Coffee</DropdownMenuItem>
-                    <DropdownMenuItem>Tea</DropdownMenuItem>
-                    <DropdownMenuItem>Juice</DropdownMenuItem>
-                    <DropdownMenuItem>Plant-based Milk</DropdownMenuItem>
-                    <DropdownMenuItem>Smoothies</DropdownMenuItem>
-                    <DropdownMenuItem>Herbal Drinks</DropdownMenuItem>
-                    <DropdownMenuItem>Kombucha</DropdownMenuItem>
-                    <DropdownMenuItem>Coconut Water</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/coffee")}>
+                      Coffee
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/tea")}>
+                      Tea
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/juice")}>
+                      Juice
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/plant-milk")}>
+                      Plant-based Milk
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/smoothies")}>
+                      Smoothies
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/herbal")}>
+                      Herbal Drinks
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/kombucha")}>
+                      Kombucha
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages/coconut-water")}>
+                      Coconut Water
+                    </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/products/beverages" className="w-full">
-                      View All
-                    </Link>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/beverages")}>View All</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
@@ -588,20 +620,34 @@ export default function Header() {
                   <DropdownMenuLabel>150+ Products</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem>Skincare</DropdownMenuItem>
-                    <DropdownMenuItem>Haircare</DropdownMenuItem>
-                    <DropdownMenuItem>Oral Care</DropdownMenuItem>
-                    <DropdownMenuItem>Body Care</DropdownMenuItem>
-                    <DropdownMenuItem>Face Wash</DropdownMenuItem>
-                    <DropdownMenuItem>Shampoo</DropdownMenuItem>
-                    <DropdownMenuItem>Oils</DropdownMenuItem>
-                    <DropdownMenuItem>Soaps</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/skincare")}>
+                      Skincare
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/haircare")}>
+                      Haircare
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/oral-care")}>
+                      Oral Care
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/body-care")}>
+                      Body Care
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/face-wash")}>
+                      Face Wash
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/shampoo")}>
+                      Shampoo
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/oils")}>
+                      Oils
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care/soaps")}>
+                      Soaps
+                    </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/products/personal-care" className="w-full">
-                      View All
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/personal-care")}>
+                    View All
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -610,35 +656,23 @@ export default function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-white hover:text-gray-200">More Categories</DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                  <DropdownMenuItem>
-                    <Link href="/products/meat-poultry" className="w-full">
-                      Organic Meat & Poultry
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/meat-poultry")}>
+                    Organic Meat & Poultry
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/products/snacks" className="w-full">
-                      Organic Snacks
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/snacks")}>
+                    Organic Snacks
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/products/cleaning" className="w-full">
-                      Organic Cleaning
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/cleaning")}>
+                    Organic Cleaning
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/products/baby" className="w-full">
-                      Organic Baby Products
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/baby")}>
+                    Organic Baby Products
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/products/home-living" className="w-full">
-                      Home & Living
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/home-living")}>
+                    Home & Living
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/products/eco-accessories" className="w-full">
-                      Eco Accessories
-                    </Link>
+                  <DropdownMenuItem onSelect={() => handleNavigation("/products/eco-accessories")}>
+                    Eco Accessories
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
