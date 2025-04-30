@@ -21,7 +21,7 @@ export { default as Order } from "@/models/order"
 
 import { cookies } from "next/headers"
 import { SignJWT, jwtVerify } from "jose"
-import { User } from "@/models/user"
+import User from "@/models/user"
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret_please_change_in_production")
 
@@ -58,6 +58,8 @@ export async function getSessionUser() {
     return {
       ...user,
       _id: user._id.toString(),
+      username: user.username,
+      role: user.role,
     }
   } catch (error) {
     console.error("Session verification error:", error)
@@ -89,4 +91,9 @@ export async function createSession(userId: string, expiresIn = "7d") {
     console.error("Session creation error:", error)
     return false
   }
+}
+
+export async function getServerSession() {
+  const user = await getSessionUser()
+  return { user }
 }

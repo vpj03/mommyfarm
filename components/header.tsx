@@ -119,24 +119,190 @@ export default function Header() {
                     )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>My Account ({user.role})</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href={`/${user.username}/dashboard`} className="w-full">
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href={`/${user.username}/profile`} className="w-full">
-                      Profile
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href={`/${user.username}/orders`} className="w-full">
-                      Orders
-                    </Link>
-                  </DropdownMenuItem>
+
+                  {user.role === "admin" && (
+                    <>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin`} className="w-full">
+                          Admin Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/users`} className="w-full">
+                          User Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/products`} className="w-full">
+                          Products Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/orders`} className="w-full">
+                          Orders Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/payments`} className="w-full">
+                          Payments Tracking
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/banners`} className="w-full">
+                          Banners/Hero Slides
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/categories`} className="w-full">
+                          Categories Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/ebooks`} className="w-full">
+                          E-books Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/brands`} className="w-full">
+                          Brands Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/sellers`} className="w-full">
+                          Seller Approvals
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/messages`} className="w-full">
+                          Messaging System
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/settings`} className="w-full">
+                          Settings
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+
+                  {user.role === "seller" && (
+                    <>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/dashboard`} className="w-full">
+                          Seller Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/store`} className="w-full">
+                          Store Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/products`} className="w-full">
+                          Product Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/orders`} className="w-full">
+                          Orders Tracking
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/payments`} className="w-full">
+                          Payments Tracking
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/customers`} className="w-full">
+                          Customer Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/analytics`} className="w-full">
+                          Analytics Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/messages`} className="w-full">
+                          Messaging System
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/kyc`} className="w-full">
+                          KYC Details
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/settings`} className="w-full">
+                          Settings
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+
+                  {user.role === "buyer" && (
+                    <>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/dashboard`} className="w-full">
+                          Buyer Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/profile`} className="w-full">
+                          Profile Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/orders`} className="w-full">
+                          Orders History
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href="/wishlist" className="w-full">
+                          Wishlist
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/addresses`} className="w-full">
+                          Address Management
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/subscriptions`} className="w-full">
+                          Subscriptions
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/payment-methods`} className="w-full">
+                          Payment Methods
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/wallet`} className="w-full">
+                          Wallet
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/notifications`} className="w-full">
+                          Notifications
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/support`} className="w-full">
+                          Support
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/settings`} className="w-full">
+                          Settings
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
@@ -199,25 +365,77 @@ export default function Header() {
 
               {user ? (
                 <>
-                  <Link href={`/${user.username}/dashboard`} className="flex items-center space-x-2 text-white">
-                    <div className="relative w-6 h-6 rounded-full overflow-hidden">
-                      {user.image ? (
-                        <Image
-                          src={user.image || "/placeholder.svg"}
-                          alt={user.name}
-                          width={24}
-                          height={24}
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-white text-[#86C33B] text-xs font-bold">
-                          {user.name.charAt(0).toUpperCase()}
-                        </div>
-                      )}
+                  {user.role === "admin" && (
+                    <div className="flex flex-col space-y-2 border-t border-white/20 pt-2">
+                      <span className="text-white font-semibold">Admin Menu</span>
+                      <Link href={`/${user.username}/admin`} className="text-white">
+                        Admin Dashboard
+                      </Link>
+                      <Link href={`/${user.username}/admin/users`} className="text-white">
+                        User Management
+                      </Link>
+                      <Link href={`/${user.username}/admin/products`} className="text-white">
+                        Products Management
+                      </Link>
+                      <Link href={`/${user.username}/admin/orders`} className="text-white">
+                        Orders Management
+                      </Link>
+                      <Link href={`/${user.username}/admin/payments`} className="text-white">
+                        Payments Tracking
+                      </Link>
+                      <Link href={`/${user.username}/admin/settings`} className="text-white">
+                        Settings
+                      </Link>
                     </div>
-                    <span>Dashboard</span>
-                  </Link>
-                  <Button variant="ghost" onClick={logout} className="justify-start px-0 text-white">
+                  )}
+
+                  {user.role === "seller" && (
+                    <div className="flex flex-col space-y-2 border-t border-white/20 pt-2">
+                      <span className="text-white font-semibold">Seller Menu</span>
+                      <Link href={`/${user.username}/seller/dashboard`} className="text-white">
+                        Seller Dashboard
+                      </Link>
+                      <Link href={`/${user.username}/seller/store`} className="text-white">
+                        Store Management
+                      </Link>
+                      <Link href={`/${user.username}/seller/products`} className="text-white">
+                        Product Management
+                      </Link>
+                      <Link href={`/${user.username}/seller/orders`} className="text-white">
+                        Orders Tracking
+                      </Link>
+                      <Link href={`/${user.username}/seller/settings`} className="text-white">
+                        Settings
+                      </Link>
+                    </div>
+                  )}
+
+                  {user.role === "buyer" && (
+                    <div className="flex flex-col space-y-2 border-t border-white/20 pt-2">
+                      <span className="text-white font-semibold">Buyer Menu</span>
+                      <Link href={`/${user.username}/dashboard`} className="text-white">
+                        Buyer Dashboard
+                      </Link>
+                      <Link href={`/${user.username}/profile`} className="text-white">
+                        Profile Management
+                      </Link>
+                      <Link href={`/${user.username}/orders`} className="text-white">
+                        Orders History
+                      </Link>
+                      <Link href="/wishlist" className="text-white">
+                        Wishlist
+                      </Link>
+                      <Link href={`/${user.username}/settings`} className="text-white">
+                        Settings
+                      </Link>
+                    </div>
+                  )}
+
+                  <Button
+                    variant="ghost"
+                    onClick={logout}
+                    className="justify-start px-0 text-white border-t border-white/20 pt-2"
+                  >
                     Logout
                   </Button>
                 </>
