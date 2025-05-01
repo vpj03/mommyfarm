@@ -44,7 +44,13 @@ export default function Header() {
 
   // Function to handle navigation
   const handleNavigation = (path: string) => {
-    router.push(path)
+    if (path && typeof path === "string") {
+      router.push(path)
+      // Close mobile menu if it's open
+      if (mobileMenuOpen) {
+        setMobileMenuOpen(false)
+      }
+    }
   }
 
   return (
