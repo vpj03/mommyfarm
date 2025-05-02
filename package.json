@@ -63,8 +63,8 @@
     "path": "latest",
     "uuid": "latest",
     "mongoose": "latest",
-    "dotenv": "latest",
-    "jose": "latest"
+    "jose": "latest",
+    "dotenv": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",
