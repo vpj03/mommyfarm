@@ -1,82 +1,85 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { verifyJwtToken } from "./lib/jwt"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { jwtVerify } from "jose"
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const path = request.nextUrl.pathname
 
-  // Check if the path is for a protected route
-  const isProtectedRoute =
-    pathname.startsWith("/admin") ||
-    pathname.includes("/admin/") ||
-    pathname.startsWith("/seller") ||
-    pathname.includes("/seller/") ||
-    pathname.includes("/dashboard") ||
-    pathname.includes("/profile") ||
-    pathname.includes("/orders") ||
-    pathname.includes("/addresses") ||
-    pathname.includes("/subscriptions") ||
-    pathname.includes("/payment-methods") ||
-    pathname.includes("/wallet") ||
-    pathname.includes("/notifications") ||
-    pathname.includes("/support") ||
-    pathname.includes("/settings")
+  // Define public paths that don't require authentication
+  const isPublicPath =
+    path === "/" ||
+    path === "/login" ||
+    path === "/register" ||
+    path === "/seller/register" ||
+    path.startsWith("/api/auth") ||
+    path.startsWith("/api/seed") ||
+    path.startsWith("/api/products") ||
+    path.startsWith("/api/categories") ||
+    path.startsWith("/api/banners") ||
+    path.startsWith("/api/brands") ||
+    path.startsWith("/api/ebooks") ||
+    path.startsWith("/_next") ||
+    path.includes(".") // For static files
 
-  // Skip middleware for non-protected routes and API routes
-  if (!isProtectedRoute || pathname.startsWith("/api")) {
+  // Get the session cookie
+  const sessionCookie = request.cookies.get("session")?.value
+
+  // If the path is public, allow access
+  if (isPublicPath) {
     return NextResponse.next()
   }
 
-  // Get the token from the cookies
-  const token = request.cookies.get("token")?.value
-
-  // If there's no token, redirect to login
-  if (!token) {
+  // If there's no session cookie and the path is not public, redirect to login
+  if (!sessionCookie) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   try {
-    // Verify the token
-    const payload = await verifyJwtToken(token)
+    // Verify the JWT token
+    const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret_please_change_in_production")
+    const { payload } = await jwtVerify(sessionCookie, JWT_SECRET)
 
-    // If the token is invalid, redirect to login
-    if (!payload) {
-      return NextResponse.redirect(new URL("/login", request.url))
-    }
+    // Extract username from path for dynamic routes
+    const pathParts = path.split("/").filter(Boolean)
+    const urlUsername = pathParts[0]
 
-    // Check role-based access
-    const { role, username } = payload
-
-    // Extract username from path for user-specific routes
-    const pathParts = pathname.split("/")
-    const pathUsername = pathParts[1] // Username is the first part after the initial slash
-
-    // Check if the route requires a specific role
-    const isAdminRoute = pathname.includes("/admin/")
-    const isSellerRoute = pathname.includes("/seller/")
-
-    // Admin routes require admin role
-    if (isAdminRoute && role !== "admin") {
+    // Check role-based access for admin routes
+    if ((path.includes("/admin") || pathParts[1] === "admin") && payload.role !== "admin") {
       return NextResponse.redirect(new URL("/", request.url))
     }
 
-    // Seller routes require seller or admin role
-    if (isSellerRoute && role !== "seller" && role !== "admin") {
+    // Check role-based access for seller routes
+    if (
+      (path.includes("/seller") || pathParts[1] === "seller") &&
+      payload.role !== "seller" &&
+      payload.role !== "admin"
+    ) {
       return NextResponse.redirect(new URL("/", request.url))
     }
 
-    // User-specific routes require matching username or admin role
-    if (pathUsername && pathUsername !== username && role !== "admin") {
+    // For username-based routes, verify the username matches
+    if (urlUsername && urlUsername !== payload.username && payload.role !== "admin") {
       return NextResponse.redirect(new URL("/", request.url))
     }
 
     return NextResponse.next()
   } catch (error) {
-    // If there's an error verifying the token, redirect to login
+    console.error("Auth error:", error)
+    // If token verification fails, redirect to login
     return NextResponse.redirect(new URL("/login", request.url))
   }
 }
 
-// Configure which routes the middleware should run on
+// See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api/public (API routes that don't require authentication)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    "/((?!api/public|_next/static|_next/image|favicon.ico).*)",
+  ],
 }

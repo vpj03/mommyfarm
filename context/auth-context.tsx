@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import { useRouter } from "next/navigation"
 
 interface User {
   _id: string
@@ -31,6 +32,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     // Check if user is logged in
@@ -71,6 +73,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (data.success && data.user) {
         setUser(data.user)
+
+        // Redirect based on user role
+        if (data.user.role === "admin") {
+          router.push(`/${data.user.username}/admin`)
+        } else if (data.user.role === "seller") {
+          router.push(`/${data.user.username}/seller/dashboard`)
+        } else {
+          router.push(`/${data.user.username}/dashboard`)
+        }
       } else {
         throw new Error(data.message || "Login failed")
       }
@@ -108,6 +119,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (data.success && data.user) {
         setUser(data.user)
+
+        // Redirect based on user role
+        if (data.user.role === "admin") {
+          router.push(`/${data.user.username}/admin`)
+        } else if (data.user.role === "seller") {
+          router.push(`/${data.user.username}/seller/dashboard`)
+        } else {
+          router.push(`/${data.user.username}/dashboard`)
+        }
       } else {
         throw new Error(data.message || "Registration failed")
       }
@@ -125,6 +145,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         method: "POST",
       })
       setUser(null)
+      router.push("/login")
     } catch (error) {
       console.error("Logout error:", error)
     }
