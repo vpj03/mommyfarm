@@ -132,62 +132,62 @@ export default function Header() {
                   {user.role === "admin" && (
                     <>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin`} className="w-full">
+                        <Link href={`/${user.username}/admin`} onClick={closeMobileMenu}>
                           Admin Dashboard
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/users`} className="w-full">
+                        <Link href={`/${user.username}/admin/users`} onClick={closeMobileMenu}>
                           User Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/products`} className="w-full">
+                        <Link href={`/${user.username}/admin/products`} onClick={closeMobileMenu}>
                           Products Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/orders`} className="w-full">
+                        <Link href={`/${user.username}/admin/orders`} onClick={closeMobileMenu}>
                           Orders Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/payments`} className="w-full">
+                        <Link href={`/${user.username}/admin/payments`} onClick={closeMobileMenu}>
                           Payments Tracking
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/banners`} className="w-full">
+                        <Link href={`/${user.username}/admin/banners`} onClick={closeMobileMenu}>
                           Banners/Hero Slides
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/categories`} className="w-full">
+                        <Link href={`/${user.username}/admin/categories`} onClick={closeMobileMenu}>
                           Categories Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/ebooks`} className="w-full">
+                        <Link href={`/${user.username}/admin/ebooks`} onClick={closeMobileMenu}>
                           E-books Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/brands`} className="w-full">
+                        <Link href={`/${user.username}/admin/brands`} onClick={closeMobileMenu}>
                           Brands Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/sellers`} className="w-full">
+                        <Link href={`/${user.username}/admin/sellers`} onClick={closeMobileMenu}>
                           Seller Approvals
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/messages`} className="w-full">
+                        <Link href={`/${user.username}/admin/messages`} onClick={closeMobileMenu}>
                           Messaging System
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/settings`} className="w-full">
+                        <Link href={`/${user.username}/admin/settings`} onClick={closeMobileMenu}>
                           Settings
                         </Link>
                       </DropdownMenuItem>
@@ -197,52 +197,52 @@ export default function Header() {
                   {user.role === "seller" && (
                     <>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/dashboard`} className="w-full">
+                        <Link href={`/${user.username}/seller/dashboard`} onClick={closeMobileMenu}>
                           Seller Dashboard
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/store`} className="w-full">
+                        <Link href={`/${user.username}/seller/store`} onClick={closeMobileMenu}>
                           Store Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/products`} className="w-full">
+                        <Link href={`/${user.username}/seller/products`} onClick={closeMobileMenu}>
                           Product Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/orders`} className="w-full">
+                        <Link href={`/${user.username}/seller/orders`} onClick={closeMobileMenu}>
                           Orders Tracking
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/payments`} className="w-full">
+                        <Link href={`/${user.username}/seller/payments`} onClick={closeMobileMenu}>
                           Payments Tracking
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/customers`} className="w-full">
+                        <Link href={`/${user.username}/seller/customers`} onClick={closeMobileMenu}>
                           Customer Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/analytics`} className="w-full">
+                        <Link href={`/${user.username}/seller/analytics`} onClick={closeMobileMenu}>
                           Analytics Dashboard
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/messages`} className="w-full">
+                        <Link href={`/${user.username}/seller/messages`} onClick={closeMobileMenu}>
                           Messaging System
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/kyc`} className="w-full">
+                        <Link href={`/${user.username}/seller/kyc`} onClick={closeMobileMenu}>
                           KYC Details
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/settings`} className="w-full">
+                        <Link href={`/${user.username}/seller/settings`} onClick={closeMobileMenu}>
                           Settings
                         </Link>
                       </DropdownMenuItem>
@@ -252,57 +252,57 @@ export default function Header() {
                   {user.role === "buyer" && (
                     <>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/dashboard`} className="w-full">
+                        <Link href={`/${user.username}/dashboard`} onClick={closeMobileMenu}>
                           Buyer Dashboard
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/profile`} className="w-full">
+                        <Link href={`/${user.username}/profile`} onClick={closeMobileMenu}>
                           Profile Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/orders`} className="w-full">
+                        <Link href={`/${user.username}/orders`} onClick={closeMobileMenu}>
                           Orders History
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/wishlist" className="w-full">
+                        <Link href="/wishlist" onClick={closeMobileMenu}>
                           Wishlist
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/addresses`} className="w-full">
+                        <Link href={`/${user.username}/addresses`} onClick={closeMobileMenu}>
                           Address Management
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/subscriptions`} className="w-full">
+                        <Link href={`/${user.username}/subscriptions`} onClick={closeMobileMenu}>
                           Subscriptions
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/payment-methods`} className="w-full">
+                        <Link href={`/${user.username}/payment-methods`} onClick={closeMobileMenu}>
                           Payment Methods
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/wallet`} className="w-full">
+                        <Link href={`/${user.username}/wallet`} onClick={closeMobileMenu}>
                           Wallet
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/notifications`} className="w-full">
+                        <Link href={`/${user.username}/notifications`} onClick={closeMobileMenu}>
                           Notifications
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/support`} className="w-full">
+                        <Link href={`/${user.username}/support`} onClick={closeMobileMenu}>
                           Support
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/settings`} className="w-full">
+                        <Link href={`/${user.username}/settings`} onClick={closeMobileMenu}>
                           Settings
                         </Link>
                       </DropdownMenuItem>
