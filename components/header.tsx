@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,6 +22,7 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
   const { user, logout } = useAuth()
 
   useEffect(() => {
@@ -44,6 +45,15 @@ export default function Header() {
   const closeMobileMenu = () => {
     setMobileMenuOpen(false)
   }
+
+  const handleNavigation = (url: string) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    router.push(url);
+    closeMobileMenu();
+  };
 
   return (
     <header
