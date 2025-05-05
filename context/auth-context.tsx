@@ -38,21 +38,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Check if user is logged in
     const checkAuth = async () => {
       try {
-        const response = await fetch("/api/auth/check")
-        const data = await response.json()
-
+        const response = await fetch("/api/auth/check");
+        const data = await response.json();
         if (data.success && data.user) {
-          setUser(data.user)
+          setUser(data.user);
+        } else {
+          setUser(null); // Ensure user is null if not authenticated
         }
       } catch (error) {
-        console.error("Auth check error:", error)
+        console.error("Auth check error:", error);
+        setUser(null); // Handle errors by resetting user state
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-
-    checkAuth()
-  }, [])
+    };
+    checkAuth();
+  }, []);
 
   const login = async (email: string, password: string) => {
     setLoading(true)
