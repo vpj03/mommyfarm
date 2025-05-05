@@ -1,34 +1,28 @@
-import type { Metadata } from "next"
-import { getServerSession } from "@/lib/server-utils"
+import { getSessionUser } from "@/lib/server-utils"
 import { redirect } from "next/navigation"
-
-export const metadata: Metadata = {
-  title: "Customer Management | MommyFarm Seller",
-  description: "Manage your customers on MommyFarm",
-}
+import PageTemplate from "@/components/page-template"
 
 export default async function SellerCustomersPage({ params }: { params: { username: string } }) {
-  const session = await getServerSession()
+  const user = await getSessionUser()
 
-  if (!session || !session.user) {
+  if (!user) {
     redirect("/login")
   }
 
-  if (session.user.role !== "seller" && session.user.role !== "admin") {
+  if (user.role !== "seller" && user.role !== "admin") {
     redirect("/")
   }
 
-  if (session.user.username !== params.username && session.user.role !== "admin") {
+  if (user.username !== params.username && user.role !== "admin") {
     redirect("/")
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Customer Management</h1>
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <p className="text-lg mb-4">Welcome to your customer management page, {session.user.name}!</p>
-        <p>This page is currently under development. Soon you'll be able to manage all your customers here.</p>
+    <PageTemplate title="Customer Management">
+      <p>Manage your customers here.</p>
+      <div className="mt-6 p-4 border rounded-lg">
+        <p>Customer management functionality will be implemented here.</p>
       </div>
-    </div>
+    </PageTemplate>
   )
 }

@@ -1,11 +1,28 @@
-import type { Metadata } from "next"
-import AdminProductsClient from "./AdminProductsClient"
-
-export const metadata: Metadata = {
-  title: "Products Management | MommyFarm Admin",
-  description: "Manage products on MommyFarm",
-}
+import { getSessionUser } from "@/lib/server-utils"
+import { redirect } from "next/navigation"
+import PageTemplate from "@/components/page-template"
 
 export default async function AdminProductsPage({ params }: { params: { username: string } }) {
-  return <AdminProductsClient params={params} />
+  const user = await getSessionUser()
+
+  if (!user) {
+    redirect("/login")
+  }
+
+  if (user.role !== "admin") {
+    redirect("/")
+  }
+
+  if (user.username !== params.username) {
+    redirect("/")
+  }
+
+  return (
+    <PageTemplate title="Products Management">
+      <p>Manage all products in the system here.</p>
+      <div className="mt-6 p-4 border rounded-lg">
+        <p>Product management functionality will be implemented here.</p>
+      </div>
+    </PageTemplate>
+  )
 }

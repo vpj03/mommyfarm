@@ -1,30 +1,28 @@
-import type { Metadata } from "next"
-import { getServerSession } from "@/lib/server-utils"
+import { getSessionUser } from "@/lib/server-utils"
 import { redirect } from "next/navigation"
-
-export const metadata: Metadata = {
-  title: "Banners Management | MommyFarm Admin",
-  description: "Manage banners on MommyFarm",
-}
+import PageTemplate from "@/components/page-template"
 
 export default async function AdminBannersPage({ params }: { params: { username: string } }) {
-  const session = await getServerSession()
+  const user = await getSessionUser()
 
-  if (!session || !session.user) {
+  if (!user) {
     redirect("/login")
   }
 
-  if (session.user.role !== "admin") {
+  if (user.role !== "admin") {
+    redirect("/")
+  }
+
+  if (user.username !== params.username) {
     redirect("/")
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Banners/Hero Slides Management</h1>
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <p className="text-lg mb-4">Welcome to the banners management page, {session.user.name}!</p>
-        <p>This page is currently under development. Soon you'll be able to manage all banners and hero slides here.</p>
+    <PageTemplate title="Banners/Hero Slides">
+      <p>Manage all banners and hero slides here.</p>
+      <div className="mt-6 p-4 border rounded-lg">
+        <p>Banner management functionality will be implemented here.</p>
       </div>
-    </div>
+    </PageTemplate>
   )
 }
