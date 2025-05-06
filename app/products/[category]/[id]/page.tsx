@@ -41,6 +41,7 @@ export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState(0)
   const { user } = useAuth()
   const { toast } = useToast()
+  const [isPending, setIsPending] = useState(false)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -77,6 +78,8 @@ export default function ProductDetailPage() {
 
     if (!product) return
 
+    setIsPending(true)
+
     try {
       const response = await fetch("/api/cart", {
         method: "POST",
@@ -106,6 +109,8 @@ export default function ProductDetailPage() {
         description: (error as Error).message || "Failed to add to cart",
         variant: "destructive",
       })
+    } finally {
+      setIsPending(false)
     }
   }
 
@@ -271,11 +276,11 @@ export default function ProductDetailPage() {
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <Button
               className="bg-green-600 hover:bg-green-700 py-6 flex-1"
-              disabled={product.stock <= 0}
+              disabled={product.stock <= 0 || isPending}
               onClick={addToCart}
             >
               <ShoppingCart className="mr-2 h-5 w-5" />
-              {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
+              {isPending ? "Adding..." : product.stock > 0 ? "Add to Cart" : "Out of Stock"}
             </Button>
             <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 py-6">
               <Heart className="mr-2 h-5 w-5" />

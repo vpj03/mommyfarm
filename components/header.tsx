@@ -47,13 +47,9 @@ export default function Header() {
   }
 
   const handleNavigation = (url: string) => {
-    if (!user) {
-      router.push("/login");
-      return;
-    }
-    router.push(url);
-    closeMobileMenu();
-  };
+    router.push(url)
+    closeMobileMenu()
+  }
 
   return (
     <header
@@ -90,27 +86,25 @@ export default function Header() {
 
           {/* Navigation Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/wishlist" className="text-white hover:text-gray-200">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
-              >
-                <Heart size={20} />
-              </Button>
-            </Link>
-            <Link href="/cart" className="text-white hover:text-gray-200 relative">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
-              >
-                <ShoppingCart size={20} />
-              </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
+              onClick={() => handleNavigation("/wishlist")}
+            >
+              <Heart size={20} />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full relative"
+              onClick={() => handleNavigation("/cart")}
+            >
+              <ShoppingCart size={20} />
               <span className="absolute -top-2 -right-2 bg-white text-[#86C33B] text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 0
               </span>
-            </Link>
+            </Button>
 
             {user ? (
               <DropdownMenu>
@@ -370,14 +364,20 @@ export default function Header() {
             </div>
 
             <nav className="flex flex-col space-y-4">
-              <Link href="/wishlist" className="flex items-center space-x-2 text-white" onClick={closeMobileMenu}>
+              <button
+                className="flex items-center space-x-2 text-white w-full text-left"
+                onClick={() => handleNavigation("/wishlist")}
+              >
                 <Heart size={20} />
                 <span>Wishlist</span>
-              </Link>
-              <Link href="/cart" className="flex items-center space-x-2 text-white" onClick={closeMobileMenu}>
+              </button>
+              <button
+                className="flex items-center space-x-2 text-white w-full text-left"
+                onClick={() => handleNavigation("/cart")}
+              >
                 <ShoppingCart size={20} />
                 <span>Cart</span>
-              </Link>
+              </button>
 
               {user ? (
                 <>
