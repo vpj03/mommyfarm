@@ -72,19 +72,19 @@ export default function AdSlider() {
       {
         _id: "default-ad-1",
         title: "Special Offer on Dry Fruits",
-        image: "https://images.unsplash.com/photo-1616684000067-36952fde56ec?w=1200&auto=format&fit=crop",
+        image: "https://www.google.com/imgres?q=Special%20Offer%20on%20Dry%20Fruits&imgurl=https%3A%2F%2Fwholesaledryfruits.in%2Fwp-content%2Fuploads%2F2024%2F07%2Ffree-shipping-wdf-1.jpg&imgrefurl=https%3A%2F%2Fwholesaledryfruits.in%2F&docid=_kTEZEumXYEtBM&tbnid=ZA9Myu_Ehb9DvM&vet=12ahUKEwit4-LXhY6NAxXe6jgGHVyqEnUQM3oECGQQAA..i&w=1920&h=800&hcb=2&ved=2ahUKEwit4-LXhY6NAxXe6jgGHVyqEnUQM3oECGQQAA",
         link: "/products/dry-fruits",
       },
       {
         _id: "default-ad-2",
         title: "New Arrivals: Fresh Juices",
-        image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=1200&auto=format&fit=crop",
+        image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Ftocgrp.com%2F%3Ft%3D74411517&psig=AOvVaw07qxxKn7rXgBghBW1IxL7X&ust=1746593514307000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJj9woOGjo0DFQAAAAAdAAAAABAE",
         link: "/products/juices",
       },
       {
         _id: "default-ad-3",
         title: "Organic Gift Hampers",
-        image: "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=1200&auto=format&fit=crop",
+        image: "https://www.google.com/imgres?q=Organic%20Gift%20Hampers&imgurl=https%3A%2F%2Faarogyamastu.in%2Fwp-content%2Fuploads%2F2022%2F06%2Fimg84.jpg&imgrefurl=https%3A%2F%2Faarogyamastu.in%2Fproduct%2Forganic-tulsi-camomile-teas-and-raw-honey-diwali-hamper%2F&docid=ois5nc_mcDElYM&tbnid=X38UV2UgHJIzmM&vet=12ahUKEwjd8cSSho6NAxUMTWcHHT3aBd8QM3oECHQQAA..i&w=1696&h=1133&hcb=2&itg=1&ved=2ahUKEwjd8cSSho6NAxUMTWcHHT3aBd8QM3oECHQQAA",
         link: "/gift-hampers",
       },
     ]
