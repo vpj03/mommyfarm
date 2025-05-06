@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,7 +22,6 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
   const { user, logout } = useAuth()
 
   useEffect(() => {
@@ -44,11 +43,6 @@ export default function Header() {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false)
-  }
-
-  const handleNavigation = (url: string) => {
-    router.push(url)
-    closeMobileMenu()
   }
 
   return (
@@ -86,25 +80,27 @@ export default function Header() {
 
           {/* Navigation Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
-              onClick={() => handleNavigation("/wishlist")}
-            >
-              <Heart size={20} />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full relative"
-              onClick={() => handleNavigation("/cart")}
-            >
-              <ShoppingCart size={20} />
-              <span className="absolute -top-2 -right-2 bg-white text-[#86C33B] text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                0
-              </span>
-            </Button>
+            <Link href="/wishlist">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full"
+              >
+                <Heart size={20} />
+              </Button>
+            </Link>
+            <Link href="/cart">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="water-drop-btn bg-[#CC6203] text-white hover:bg-[#CC6203]/90 h-9 w-9 rounded-full relative"
+              >
+                <ShoppingCart size={20} />
+                <span className="absolute -top-2 -right-2 bg-white text-[#86C33B] text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  0
+                </span>
+              </Button>
+            </Link>
 
             {user ? (
               <DropdownMenu>
@@ -135,63 +131,63 @@ export default function Header() {
 
                   {user.role === "admin" && (
                     <>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin`} className="w-full" onClick={closeMobileMenu}>
                           Admin Dashboard
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/users`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/users`} className="w-full" onClick={closeMobileMenu}>
                           User Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/products`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/products`} className="w-full" onClick={closeMobileMenu}>
                           Products Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/orders`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/orders`} className="w-full" onClick={closeMobileMenu}>
                           Orders Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/payments`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/payments`} className="w-full" onClick={closeMobileMenu}>
                           Payments Tracking
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/banners`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/banners`} className="w-full" onClick={closeMobileMenu}>
                           Banners/Hero Slides
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/categories`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/categories`} className="w-full" onClick={closeMobileMenu}>
                           Categories Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/ebooks`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/ebooks`} className="w-full" onClick={closeMobileMenu}>
                           E-books Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/brands`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/brands`} className="w-full" onClick={closeMobileMenu}>
                           Brands Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/sellers`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/sellers`} className="w-full" onClick={closeMobileMenu}>
                           Seller Approvals
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/messages`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/messages`} className="w-full" onClick={closeMobileMenu}>
                           Messaging System
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/admin/settings`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/admin/settings`} className="w-full" onClick={closeMobileMenu}>
                           Settings
                         </Link>
                       </DropdownMenuItem>
@@ -200,53 +196,53 @@ export default function Header() {
 
                   {user.role === "seller" && (
                     <>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/dashboard`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/dashboard`} className="w-full" onClick={closeMobileMenu}>
                           Seller Dashboard
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/store`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/store`} className="w-full" onClick={closeMobileMenu}>
                           Store Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/products`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/products`} className="w-full" onClick={closeMobileMenu}>
                           Product Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/orders`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/orders`} className="w-full" onClick={closeMobileMenu}>
                           Orders Tracking
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/payments`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/payments`} className="w-full" onClick={closeMobileMenu}>
                           Payments Tracking
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/customers`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/customers`} className="w-full" onClick={closeMobileMenu}>
                           Customer Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/analytics`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/analytics`} className="w-full" onClick={closeMobileMenu}>
                           Analytics Dashboard
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/messages`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/messages`} className="w-full" onClick={closeMobileMenu}>
                           Messaging System
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/kyc`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/kyc`} className="w-full" onClick={closeMobileMenu}>
                           KYC Details
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/seller/settings`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/seller/settings`} className="w-full" onClick={closeMobileMenu}>
                           Settings
                         </Link>
                       </DropdownMenuItem>
@@ -255,58 +251,58 @@ export default function Header() {
 
                   {user.role === "buyer" && (
                     <>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/dashboard`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/dashboard`} className="w-full" onClick={closeMobileMenu}>
                           Buyer Dashboard
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/profile`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/profile`} className="w-full" onClick={closeMobileMenu}>
                           Profile Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/orders`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/orders`} className="w-full" onClick={closeMobileMenu}>
                           Orders History
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/wishlist" onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href="/wishlist" className="w-full" onClick={closeMobileMenu}>
                           Wishlist
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/addresses`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/addresses`} className="w-full" onClick={closeMobileMenu}>
                           Address Management
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/subscriptions`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/subscriptions`} className="w-full" onClick={closeMobileMenu}>
                           Subscriptions
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/payment-methods`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/payment-methods`} className="w-full" onClick={closeMobileMenu}>
                           Payment Methods
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/wallet`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/wallet`} className="w-full" onClick={closeMobileMenu}>
                           Wallet
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/notifications`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/notifications`} className="w-full" onClick={closeMobileMenu}>
                           Notifications
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/support`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/support`} className="w-full" onClick={closeMobileMenu}>
                           Support
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/${user.username}/settings`} onClick={closeMobileMenu}>
+                      <DropdownMenuItem>
+                        <Link href={`/${user.username}/settings`} className="w-full" onClick={closeMobileMenu}>
                           Settings
                         </Link>
                       </DropdownMenuItem>
@@ -364,20 +360,14 @@ export default function Header() {
             </div>
 
             <nav className="flex flex-col space-y-4">
-              <button
-                className="flex items-center space-x-2 text-white w-full text-left"
-                onClick={() => handleNavigation("/wishlist")}
-              >
+              <Link href="/wishlist" className="flex items-center space-x-2 text-white" onClick={closeMobileMenu}>
                 <Heart size={20} />
                 <span>Wishlist</span>
-              </button>
-              <button
-                className="flex items-center space-x-2 text-white w-full text-left"
-                onClick={() => handleNavigation("/cart")}
-              >
+              </Link>
+              <Link href="/cart" className="flex items-center space-x-2 text-white" onClick={closeMobileMenu}>
                 <ShoppingCart size={20} />
                 <span>Cart</span>
-              </button>
+              </Link>
 
               {user ? (
                 <>
@@ -504,34 +494,52 @@ export default function Header() {
                   <DropdownMenuLabel>50+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/apples">Apples</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/apples" className="w-full">
+                        Apples
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/tomatoes">Tomatoes</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/tomatoes" className="w-full">
+                        Tomatoes
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/spinach">Spinach</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/spinach" className="w-full">
+                        Spinach
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/carrots">Carrots</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/carrots" className="w-full">
+                        Carrots
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/bananas">Bananas</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/bananas" className="w-full">
+                        Bananas
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/broccoli">Broccoli</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/broccoli" className="w-full">
+                        Broccoli
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/oranges">Oranges</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/oranges" className="w-full">
+                        Oranges
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/fruits-vegetables/potatoes">Potatoes</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/fruits-vegetables/potatoes" className="w-full">
+                        Potatoes
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/fruits-vegetables">View All</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/fruits-vegetables" className="w-full">
+                      View All
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -545,34 +553,52 @@ export default function Header() {
                   <DropdownMenuLabel>30+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/rice">Rice</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/rice" className="w-full">
+                        Rice
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/wheat">Wheat</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/wheat" className="w-full">
+                        Wheat
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/lentils">Lentils</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/lentils" className="w-full">
+                        Lentils
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/oats">Oats</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/oats" className="w-full">
+                        Oats
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/quinoa">Quinoa</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/quinoa" className="w-full">
+                        Quinoa
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/chickpeas">Chickpeas</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/chickpeas" className="w-full">
+                        Chickpeas
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/barley">Barley</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/barley" className="w-full">
+                        Barley
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/grains-pulses/millet">Millet</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/grains-pulses/millet" className="w-full">
+                        Millet
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/grains-pulses">View All</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/grains-pulses" className="w-full">
+                      View All
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -584,34 +610,52 @@ export default function Header() {
                   <DropdownMenuLabel>20+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/milk">Milk</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/milk" className="w-full">
+                        Milk
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/cheese">Cheese</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/cheese" className="w-full">
+                        Cheese
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/yogurt">Yogurt</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/yogurt" className="w-full">
+                        Yogurt
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/butter">Butter</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/butter" className="w-full">
+                        Butter
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/ghee">Ghee</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/ghee" className="w-full">
+                        Ghee
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/paneer">Paneer</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/paneer" className="w-full">
+                        Paneer
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/cream">Cream</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/cream" className="w-full">
+                        Cream
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/dairy/curd">Curd</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/dairy/curd" className="w-full">
+                        Curd
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/dairy">View All</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/dairy" className="w-full">
+                      View All
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -623,34 +667,52 @@ export default function Header() {
                   <DropdownMenuLabel>50+ Types</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/coffee">Coffee</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/coffee" className="w-full">
+                        Coffee
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/tea">Tea</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/tea" className="w-full">
+                        Tea
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/juice">Juice</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/juice" className="w-full">
+                        Juice
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/plant-milk">Plant-based Milk</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/plant-milk" className="w-full">
+                        Plant-based Milk
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/smoothies">Smoothies</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/smoothies" className="w-full">
+                        Smoothies
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/herbal">Herbal Drinks</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/herbal" className="w-full">
+                        Herbal Drinks
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/kombucha">Kombucha</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/kombucha" className="w-full">
+                        Kombucha
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/beverages/coconut-water">Coconut Water</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/beverages/coconut-water" className="w-full">
+                        Coconut Water
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/beverages">View All</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/beverages" className="w-full">
+                      View All
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -664,34 +726,52 @@ export default function Header() {
                   <DropdownMenuLabel>150+ Products</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="grid grid-cols-2 gap-1">
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/skincare">Skincare</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/skincare" className="w-full">
+                        Skincare
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/haircare">Haircare</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/haircare" className="w-full">
+                        Haircare
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/oral-care">Oral Care</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/oral-care" className="w-full">
+                        Oral Care
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/body-care">Body Care</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/body-care" className="w-full">
+                        Body Care
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/face-wash">Face Wash</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/face-wash" className="w-full">
+                        Face Wash
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/shampoo">Shampoo</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/shampoo" className="w-full">
+                        Shampoo
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/oils">Oils</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/oils" className="w-full">
+                        Oils
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/products/personal-care/soaps">Soaps</Link>
+                    <DropdownMenuItem>
+                      <Link href="/products/personal-care/soaps" className="w-full">
+                        Soaps
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/personal-care">View All</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/personal-care" className="w-full">
+                      View All
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -700,23 +780,35 @@ export default function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-white hover:text-gray-200">More Categories</DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/meat-poultry">Organic Meat & Poultry</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/meat-poultry" className="w-full">
+                      Organic Meat & Poultry
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/snacks">Organic Snacks</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/snacks" className="w-full">
+                      Organic Snacks
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/cleaning">Organic Cleaning</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/cleaning" className="w-full">
+                      Organic Cleaning
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/baby">Organic Baby Products</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/baby" className="w-full">
+                      Organic Baby Products
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/home-living">Home & Living</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/home-living" className="w-full">
+                      Home & Living
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/products/eco-accessories">Eco Accessories</Link>
+                  <DropdownMenuItem>
+                    <Link href="/products/eco-accessories" className="w-full">
+                      Eco Accessories
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
